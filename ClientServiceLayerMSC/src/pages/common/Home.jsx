@@ -1,14 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { ReactLenis } from "lenis/react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  addValueToWillChange,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import GradientWaves from "../../Animations/GradientWaves";
 import "./Home.css";
+import SpringOptions from "../../Animations/SpringOptions";
 
 function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -16,74 +11,90 @@ function Home() {
   const [progressVal, setProgressVal] = useState(0);
 
   const heroSectionRef = useRef();
+  const secondSectoinRef = useRef();
   const { scrollYProgress } = useScroll({
     target: heroSectionRef,
     offset: ["start 10%", "end start"],
   });
+  const { scrollYProgress: secondSectionScrollYProgress } = useScroll({
+    target: secondSectoinRef,
+    offset: ["start 80%", "start 20%"],
+  });
 
-  const heroSectionExampleCardColorTransform = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    ["rgb(255,255,255)", "rgb(245,245,245)"],
+  // MARK: Second Section Transform
+  const secondSectionFirstCardTransform = useSpring(
+    useTransform(secondSectionScrollYProgress, [0, 1], [200, 0]),
+    SpringOptions,
   );
 
-  const heroSectionTopPilTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -450],
-  );
-  const heroSectionHeadingLineOneTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -300],
+  const secondSectionSecondCardTransform = useSpring(
+    useTransform(secondSectionScrollYProgress, [0, 1], [400, 0]),
+    SpringOptions,
   );
 
-  const heroSectionHeadingLineTwoTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -180],
+  const secondSectionThirdCardTransform = useSpring(
+    useTransform(secondSectionScrollYProgress, [0, 1], [600, 0]),
+    SpringOptions,
   );
 
-  const heroSectionDescriptionTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -100],
+  // MARK: Hero Section Transform
+  const heroSectionExampleCardColorTransform = useSpring(
+    useTransform(
+      scrollYProgress,
+      [0, 0.5],
+      ["rgb(255,255,255)", "rgb(245,245,245)"],
+    ),
+    SpringOptions,
   );
 
-  const heroSectionButtonRightTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, 250],
+  const heroSectionTopPilTransform = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, -450]),
+    SpringOptions,
   );
 
-  const heroSectionButtonRightBlurTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["blur(0px)", "blur(3px)"],
+  const heroSectionHeadingLineOneTransform = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, -300]),
+    SpringOptions,
   );
 
-  const heroSectionButtonRightOpacityTransform = useTransform(
-    scrollYProgress,
-    [0, 0.4],
-    [1, 0],
+  const heroSectionHeadingLineTwoTransform = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, -180]),
+    SpringOptions,
   );
 
-  const heroSectionButtonLeftTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -250],
+  const heroSectionDescriptionTransform = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, -100]),
+    SpringOptions,
   );
 
-  const heroSectionButtonLeftBlurTransform = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["blur(0px)", "blur(3px)"],
+  const heroSectionButtonRightTransform = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, 250]),
+    SpringOptions,
   );
 
-  const heroSectionButtonLeftOpacityTransform = useTransform(
-    scrollYProgress,
-    [0, 0.4],
-    [1, 0],
+  const heroSectionButtonRightBlurTransform = useSpring(
+    useTransform(scrollYProgress, [0, 1], ["blur(0px)", "blur(3px)"]),
+    SpringOptions,
+  );
+
+  const heroSectionButtonRightOpacityTransform = useSpring(
+    useTransform(scrollYProgress, [0, 0.4], [1, 0]),
+    SpringOptions,
+  );
+
+  const heroSectionButtonLeftTransform = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, -250]),
+    SpringOptions,
+  );
+
+  const heroSectionButtonLeftBlurTransform = useSpring(
+    useTransform(scrollYProgress, [0, 1], ["blur(0px)", "blur(3px)"]),
+    SpringOptions,
+  );
+
+  const heroSectionButtonLeftOpacityTransform = useSpring(
+    useTransform(scrollYProgress, [0, 0.4], [1, 0]),
+    SpringOptions,
   );
 
   // Simple simulator for the play button waveform state
@@ -120,42 +131,6 @@ function Home() {
     50, 25, 40, 10, 35, 20, 45, 30, 40, 15, 30, 25, 50, 20, 35, 15, 40, 30, 45,
     10, 35,
   ];
-
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const scaleIn = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
 
   return (
     <ReactLenis root>
@@ -220,16 +195,10 @@ function Home() {
             </div>
 
             <div className="home-container hero-inner-container">
-              <motion.div
-                className="hero-content"
-                initial="hidden"
-                animate="visible"
-                variants={staggerContainer}
-              >
+              <div className="hero-content">
                 <motion.div
                   style={{ translateY: heroSectionTopPilTransform }}
                   className="badge-pill"
-                  variants={fadeInUp}
                 >
                   A New Way to Learn
                 </motion.div>
@@ -240,7 +209,6 @@ function Home() {
                     lineHeight: "3rem",
                   }}
                   className="hero-title"
-                  variants={fadeInUp}
                 >
                   Learn at the
                 </motion.h1>
@@ -249,7 +217,6 @@ function Home() {
                     translateY: heroSectionHeadingLineTwoTransform,
                   }}
                   className="hero-title"
-                  variants={fadeInUp}
                 >
                   speed of thought.
                 </motion.h1>
@@ -265,7 +232,7 @@ function Home() {
                   quietly editorial magazine.
                 </motion.p>
 
-                <motion.div className="hero-actions" variants={fadeInUp}>
+                <div className="hero-actions">
                   <a href="/courses">
                     <motion.button
                       style={{
@@ -291,16 +258,10 @@ function Home() {
                       Get Started
                     </motion.button>
                   </a>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
 
-              <motion.div
-                className="hero-media"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                variants={fadeInUp}
-              >
+              <div className="hero-media">
                 {/* Audio Waveform Card - Signature Component */}
                 <motion.div
                   style={{
@@ -387,39 +348,27 @@ function Home() {
                     <span>3:15</span>
                   </div>
                 </motion.div>
-              </motion.div>
+              </div>
             </div>
           </section>
 
           {/* Benefits Section */}
           <section className="home-features">
             <div className="home-container">
-              <motion.div
-                className="features-header"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                variants={fadeInUp}
-              >
+              <div className="features-header" ref={secondSectoinRef}>
                 <h2 className="features-title">Why choose our platform?</h2>
                 <p className="features-sub">
                   We focus on depth and retention, eliminating the noise of
                   traditional online platforms.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div
-                className="features-grid"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={staggerContainer}
-              >
+              <div className="features-grid">
                 <motion.div
+                  style={{
+                    translateY: secondSectionFirstCardTransform,
+                  }}
                   className="feature-card"
-                  variants={scaleIn}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
                 >
                   <div>
                     <div className="feature-icon-wrapper">
@@ -448,9 +397,9 @@ function Home() {
 
                 <motion.div
                   className="feature-card"
-                  variants={scaleIn}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
+                  style={{
+                    translateY: secondSectionSecondCardTransform,
+                  }}
                 >
                   <div>
                     <div className="feature-icon-wrapper">
@@ -480,9 +429,9 @@ function Home() {
                 {/* Special Gradient Orb Card */}
                 <motion.div
                   className="gradient-orb-card"
-                  variants={scaleIn}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
+                  style={{
+                    translateY: secondSectionThirdCardTransform,
+                  }}
                 >
                   <div className="card-orb"></div>
                   <div className="gradient-orb-card-content">
@@ -511,20 +460,14 @@ function Home() {
                     View Dashboard
                   </a>
                 </motion.div>
-              </motion.div>
+              </div>
             </div>
           </section>
 
           {/* Editorial Philosophy Section */}
           <section className="home-philosophy">
-            <motion.div
-              className="home-container philosophy-inner-container"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={staggerContainer}
-            >
-              <motion.div className="philosophy-left" variants={fadeInUp}>
+            <div className="home-container philosophy-inner-container">
+              <div className="philosophy-left">
                 <h2>
                   Our Philosophy.
                   <br />
@@ -532,8 +475,8 @@ function Home() {
                   <br />
                   it is a practice.
                 </h2>
-              </motion.div>
-              <motion.div className="philosophy-right" variants={fadeInUp}>
+              </div>
+              <div className="philosophy-right">
                 <p>
                   Traditional learning platforms gamify education to increase
                   session lengths, rewarding raw speed over deep comprehension.
@@ -545,8 +488,8 @@ function Home() {
                   protected. We present information clearly, respect whitespace,
                   and rely on quality content rather than flashing lights.
                 </p>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </section>
 
           {/* Pre-footer CTA */}
@@ -557,13 +500,7 @@ function Home() {
                 style={{ top: "10%", left: "30%" }}
               ></div>
             </div>
-            <motion.div
-              className="home-container"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              variants={fadeInUp}
-            >
+            <div className="home-container">
               <h2 className="cta-title">Begin your learning practice today.</h2>
               <div className="cta-button-container">
                 <a href="/signup">
@@ -575,7 +512,7 @@ function Home() {
                   </button>
                 </a>
               </div>
-            </motion.div>
+            </div>
           </section>
         </main>
 
