@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 export class DatabaseProvider extends PrismaClient implements OnModuleInit, OnModuleDestroy {
 
     public constructor() {
+        // Prisma v6 - no driver adapter needed for MongoDB
         super();
     }
 

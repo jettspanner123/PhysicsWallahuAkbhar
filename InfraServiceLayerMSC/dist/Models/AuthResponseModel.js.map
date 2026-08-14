@@ -1,0 +1,1 @@
+{"version":3,"file":"AuthResponseModel.js","sourceRoot":"","sources":["../../src/Models/AuthResponseModel.ts"],"names":[],"mappings":";;;AAEA,MAAa,iBAAiB;IAEV,IAAI,CAAY;IAChB,WAAW,CAAS;IAEpC,YAAmB,IAAe,EAAE,WAAmB;QACnD,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;IACnC,CAAC;CACJ;AATD,8CASC"}

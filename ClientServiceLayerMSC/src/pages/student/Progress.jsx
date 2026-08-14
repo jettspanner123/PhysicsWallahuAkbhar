@@ -1,4 +1,3 @@
-import "../../App.css";
 import "../common/Progress.css";
 import courseData from "../common/courseData.js";
 
@@ -29,250 +28,244 @@ function Progress() {
   );
 
   return (
-    <div className="progress-page">
+    <main className="progress-container">
 
       {/* =========================
-          PAGE CONTAINER
+          PAGE HEADING
       ========================= */}
 
-      <main className="progress-container">
+      <section className="progress-heading">
 
-        {/* =========================
-            PAGE HEADING
-        ========================= */}
+        <div>
 
-        <section className="progress-heading">
+          <span className="progress-label">
+            STUDENT AREA
+          </span>
+
+          <h1>
+            My Progress
+          </h1>
+
+          <p>
+            Track your learning progress across
+            E-Learning Platform and stay on top of
+            your learning goals.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      {/* =========================
+          OVERALL PROGRESS
+      ========================= */}
+
+      <section className="overall-progress-card">
+
+        <div className="overall-progress-top">
 
           <div>
 
-            <span className="progress-label">
-              STUDENT AREA
+            <span className="progress-card-label">
+              OVERALL PERFORMANCE
             </span>
 
-            <h1>
-              My Progress
-            </h1>
+            <h2>
+              Overall Learning Progress
+            </h2>
 
             <p>
-              Track your learning progress across
-              E-Learning Platform and stay on top of
-              your learning goals.
+              Keep learning and complete your courses
+              to achieve your goals.
             </p>
 
           </div>
 
-          <a
-            href="/dashboard"
-            className="progress-back-btn"
-          >
-            ← Dashboard
-          </a>
-
-        </section>
-
-
-        {/* =========================
-            OVERALL PROGRESS
-        ========================= */}
-
-        <section className="overall-progress-card">
-
-          <div className="overall-progress-top">
-
-            <div>
-
-              <span className="progress-card-label">
-                OVERALL PERFORMANCE
-              </span>
-
-              <h2>
-                Overall Learning Progress
-              </h2>
-
-              <p>
-                Keep learning and complete your courses
-                to achieve your goals.
-              </p>
-
-            </div>
-
-            <div className="overall-progress-number">
-              {totalProgress}%
-            </div>
-
+          <div className="overall-progress-number">
+            {totalProgress}%
           </div>
 
+        </div>
 
-          <div className="overall-progress-info">
 
-            <span>
-              Overall Progress
+        <div className="overall-progress-info">
+
+          <span>
+            Overall Progress
+          </span>
+
+          <strong>
+            {totalProgress}%
+          </strong>
+
+        </div>
+
+
+        <div className="overall-progress-bar">
+
+          <div
+            className="overall-progress-fill"
+            style={{
+              width: `${totalProgress}%`,
+            }}
+          ></div>
+
+        </div>
+
+      </section>
+
+
+      {/* =========================
+          COURSE-WISE PROGRESS
+      ========================= */}
+
+      <section className="course-progress-section">
+
+        <div className="course-progress-heading">
+
+          <div>
+
+            <span className="progress-label">
+              YOUR COURSES
             </span>
 
-            <strong>
-              {totalProgress}%
-            </strong>
+            <h2>
+              Course-wise Progress
+            </h2>
+
+            <p>
+              View your progress in each enrolled course.
+            </p>
 
           </div>
 
+          <span className="course-count">
+            {courseData.length} Courses
+          </span>
 
-          <div className="overall-progress-bar">
-
-            <div
-              className="overall-progress-fill"
-              style={{
-                width: `${totalProgress}%`,
-              }}
-            ></div>
-
-          </div>
-
-        </section>
+        </div>
 
 
-        {/* =========================
-            COURSE-WISE PROGRESS
-        ========================= */}
+        <div className="course-progress-grid">
 
-        <section className="course-progress-section">
+          {courseData.map((course) => {
 
-          <div className="course-progress-heading">
+            const progress =
+              courseProgress[course.id] || 0;
 
-            <div>
+            const completed =
+              completedLessons[course.id] || 0;
 
-              <span className="progress-label">
-                YOUR COURSES
-              </span>
+            const totalLessons =
+              parseInt(course.lessons) || 0;
 
-              <h2>
-                Course-wise Progress
-              </h2>
+            const courseIcons = {
+              "web-development": "fa-solid fa-laptop-code",
+              "java-programming": "fa-solid fa-mug-hot",
+              "database-management": "fa-solid fa-database",
+              "python-programming": "fa-solid fa-code",
+              "data-analytics": "fa-solid fa-chart-bar",
+              "cyber-security": "fa-solid fa-shield-halved",
+            };
 
-              <p>
-                View your progress in each enrolled course.
-              </p>
+            return (
 
-            </div>
+              <article
+                className="course-progress-card"
+                key={course.id}
+              >
 
-            <span className="course-count">
-              {courseData.length} Courses
-            </span>
+                {/* Card Header */}
 
-          </div>
+                <div className="course-progress-card-top">
 
+                  <div>
 
-          <div className="course-progress-grid">
-
-            {courseData.map((course) => {
-
-              const progress =
-                courseProgress[course.id] || 0;
-
-              const completed =
-                completedLessons[course.id] || 0;
-
-              const totalLessons =
-                parseInt(course.lessons) || 0;
-
-              return (
-
-                <article
-                  className="course-progress-card"
-                  key={course.id}
-                >
-
-                  {/* Card Header */}
-
-                  <div className="course-progress-card-top">
-
-                    <div>
-
-                      <span className="course-progress-category">
-                        {course.category}
-                      </span>
-
-                      <h3>
-                        {course.title}
-                      </h3>
-
-                    </div>
-
-                    <div className="course-progress-percent">
-                      {progress}%
-                    </div>
-
-                  </div>
-
-
-                  {/* Progress Bar */}
-
-                  <div className="course-progress-bar">
-
-                    <div
-                      className="course-progress-fill"
-                      style={{
-                        width: `${progress}%`,
-                      }}
-                    ></div>
-
-                  </div>
-
-
-                  {/* Course Details */}
-
-                  <div className="course-progress-details">
-
-                    <span>
-                      📚 {completed} of {totalLessons} lessons
+                    <span className="course-progress-category">
+                      {course.category}
                     </span>
 
-                    <span>
-                      ⏱️ {course.duration}
+                    <h3>
+                      <i className={courseIcons[course.id] || "fa-solid fa-book"}></i> {course.title}
+                    </h3>
+
+                  </div>
+
+                  <div className="course-progress-percent">
+                    {progress}%
+                  </div>
+
+                </div>
+
+
+                {/* Progress Bar */}
+
+                <div className="course-progress-bar">
+
+                  <div
+                    className="course-progress-fill"
+                    style={{
+                      width: `${progress}%`,
+                    }}
+                  ></div>
+
+                </div>
+
+
+                {/* Course Details */}
+
+                <div className="course-progress-details">
+
+                  <span>
+                    <i className="fa-solid fa-book"></i> {completed} of {totalLessons} lessons
+                  </span>
+
+                  <span>
+                    <i className="fa-solid fa-clock"></i> {course.duration}
+                  </span>
+
+                </div>
+
+
+                {/* Status */}
+
+                <div className="course-progress-status">
+
+                  {progress >= 100 ? (
+                    <span className="status-completed">
+                      ✓ Course Completed
                     </span>
+                  ) : progress >= 50 ? (
+                    <span className="status-progress">
+                      ● In Progress
+                    </span>
+                  ) : (
+                    <span className="status-started">
+                      ○ Getting Started
+                    </span>
+                  )}
 
-                  </div>
+                  <a
+                    href={`/course-details?id=${course.id}`}
+                    className="progress-course-btn"
+                  >
+                    Continue <i className="fa-solid fa-arrow-right"></i>
+                  </a>
 
+                </div>
 
-                  {/* Status */}
+              </article>
 
-                  <div className="course-progress-status">
+            );
 
-                    {progress >= 100 ? (
-                      <span className="status-completed">
-                        ✓ Course Completed
-                      </span>
-                    ) : progress >= 50 ? (
-                      <span className="status-progress">
-                        ● In Progress
-                      </span>
-                    ) : (
-                      <span className="status-started">
-                        ○ Getting Started
-                      </span>
-                    )}
+          })}
 
-                    <a
-                      href={`/course-details?id=${course.id}`}
-                      className="progress-course-btn"
-                    >
-                      Continue →
-                    </a>
+        </div>
 
-                  </div>
+      </section>
 
-                </article>
-
-              );
-
-            })}
-
-          </div>
-
-        </section>
-
-      </main>
-
-    </div>
+    </main>
   );
 }
 

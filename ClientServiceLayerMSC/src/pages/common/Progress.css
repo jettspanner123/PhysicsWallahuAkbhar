@@ -2,17 +2,8 @@
    MY PROGRESS PAGE
 ========================================================= */
 
-.progress-page {
-  min-height: 100vh;
-  background: #f6f8fc;
-  color: #172033;
-}
-
 .progress-container {
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 35px;
   box-sizing: border-box;
 }
 
@@ -25,12 +16,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 25px;
-  margin-bottom: 25px;
-  padding: 28px;
-  background: #ffffff;
-  border: 1px solid #e3e8f0;
-  border-radius: 18px;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-lg);
   box-sizing: border-box;
 }
 
@@ -38,7 +29,7 @@
 .progress-card-label {
   display: block;
   margin-bottom: 7px;
-  color: #2563eb;
+  color: var(--ink);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.8px;
@@ -47,52 +38,31 @@
 
 .progress-heading h1 {
   margin: 0 0 8px;
-  color: #172033;
+  color: var(--ink);
   font-size: 30px;
   line-height: 1.25;
+  font-family: 'EB Garamond', serif;
 }
 
 .progress-heading p {
   max-width: 680px;
   margin: 0;
-  color: #64748b;
+  color: var(--body);
   font-size: 13px;
   line-height: 1.7;
 }
-
-.progress-back-btn {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 16px;
-  border: 1px solid #dbe4f4;
-  border-radius: 9px;
-  background: #ffffff;
-  color: #2563eb;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 700;
-  transition: 0.2s ease;
-}
-
-.progress-back-btn:hover {
-  background: #eef4ff;
-  border-color: #bfd1f5;
-}
-
 
 /* =========================================================
    OVERALL PROGRESS
 ========================================================= */
 
 .overall-progress-card {
-  margin-bottom: 32px;
-  padding: 27px;
-  background: #ffffff;
-  border: 1px solid #e3e8f0;
-  border-radius: 18px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-lg);
+  box-shadow: 0 4px 14px rgba(12, 10, 9, 0.04);
   box-sizing: border-box;
 }
 
@@ -100,25 +70,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 25px;
+  gap: var(--spacing-lg);
 }
 
 .overall-progress-top h2 {
   margin: 0 0 7px;
-  color: #172033;
+  color: var(--ink);
   font-size: 20px;
+  font-family: 'EB Garamond', serif;
 }
 
 .overall-progress-top p {
   margin: 0;
-  color: #64748b;
+  color: var(--body);
   font-size: 12px;
   line-height: 1.6;
 }
 
 .overall-progress-number {
   min-width: 82px;
-  color: #2563eb;
+  color: var(--ink);
   font-size: 32px;
   font-weight: 800;
   text-align: right;
@@ -128,29 +99,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 22px;
+  margin-top: var(--spacing-lg);
   margin-bottom: 8px;
-  color: #64748b;
+  color: var(--body);
   font-size: 11px;
 }
 
 .overall-progress-info strong {
-  color: #2563eb;
+  color: var(--ink);
   font-size: 12px;
 }
 
 .overall-progress-bar {
   width: 100%;
   height: 9px;
-  background: #e8edf5;
-  border-radius: 20px;
+  background: var(--surface-strong);
+  border-radius: var(--rounded-pill);
   overflow: hidden;
 }
 
 .overall-progress-fill {
   height: 100%;
-  background: #2563eb;
-  border-radius: 20px;
+  background: var(--ink);
+  border-radius: var(--rounded-pill);
   transition: width 0.3s ease;
 }
 
@@ -167,28 +138,29 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 20px;
+  gap: var(--spacing-md);
   margin-bottom: 17px;
 }
 
 .course-progress-heading h2 {
   margin: 0 0 5px;
-  color: #172033;
+  color: var(--ink);
   font-size: 22px;
+  font-family: 'EB Garamond', serif;
 }
 
 .course-progress-heading p {
   margin: 0;
-  color: #64748b;
+  color: var(--body);
   font-size: 12px;
 }
 
 .course-count {
   flex-shrink: 0;
   padding: 7px 12px;
-  border-radius: 20px;
-  background: #eaf1ff;
-  color: #2563eb;
+  border-radius: var(--rounded-pill);
+  background: var(--surface-strong);
+  color: var(--ink);
   font-size: 11px;
   font-weight: 700;
 }
@@ -201,7 +173,7 @@
 .course-progress-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  gap: var(--spacing-md);
 }
 
 
@@ -211,19 +183,19 @@
 
 .course-progress-card {
   min-width: 0;
-  padding: 21px;
-  background: #ffffff;
-  border: 1px solid #e3e8f0;
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+  padding: var(--spacing-md);
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-lg);
+  box-shadow: 0 4px 14px rgba(12, 10, 9, 0.04);
   box-sizing: border-box;
   transition: 0.2s ease;
 }
 
 .course-progress-card:hover {
   transform: translateY(-2px);
-  border-color: #bfd1f5;
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.07);
+  border-color: var(--hairline-strong);
+  box-shadow: 0 8px 20px rgba(12, 10, 9, 0.07);
 }
 
 
@@ -235,14 +207,14 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--spacing-sm);
   margin-bottom: 17px;
 }
 
 .course-progress-category {
   display: block;
   margin-bottom: 6px;
-  color: #2563eb;
+  color: var(--ink);
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.6px;
@@ -251,14 +223,15 @@
 
 .course-progress-card h3 {
   margin: 0;
-  color: #172033;
+  color: var(--ink);
   font-size: 17px;
   line-height: 1.4;
+  font-family: 'EB Garamond', serif;
 }
 
 .course-progress-percent {
   flex-shrink: 0;
-  color: #2563eb;
+  color: var(--ink);
   font-size: 17px;
   font-weight: 800;
 }
@@ -272,15 +245,15 @@
   width: 100%;
   height: 7px;
   margin-bottom: 14px;
-  background: #e8edf5;
-  border-radius: 20px;
+  background: var(--surface-strong);
+  border-radius: var(--rounded-pill);
   overflow: hidden;
 }
 
 .course-progress-fill {
   height: 100%;
-  background: #2563eb;
-  border-radius: 20px;
+  background: var(--ink);
+  border-radius: var(--rounded-pill);
   transition: width 0.3s ease;
 }
 
@@ -295,11 +268,11 @@
   justify-content: space-between;
   gap: 8px;
   padding-bottom: 16px;
-  border-bottom: 1px solid #edf0f5;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .course-progress-details span {
-  color: #64748b;
+  color: var(--muted);
   font-size: 10px;
 }
 
@@ -322,31 +295,39 @@
 }
 
 .status-completed {
-  color: #15803d;
+  color: #166534;
 }
 
 .status-progress {
-  color: #2563eb;
+  color: var(--ink);
 }
 
 .status-started {
-  color: #64748b;
+  color: var(--muted);
 }
 
 .progress-course-btn {
   flex-shrink: 0;
-  padding: 8px 11px;
-  border-radius: 8px;
-  background: #2563eb;
-  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--rounded-pill);
+  background: var(--primary);
+  color: var(--on-primary) !important;
   text-decoration: none;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   transition: 0.2s ease;
 }
 
+.progress-course-btn i {
+  font-size: 10px;
+}
+
 .progress-course-btn:hover {
-  background: #1d4ed8;
+  background: var(--primary-active);
+  color: var(--on-primary) !important;
 }
 
 
@@ -355,10 +336,6 @@
 ========================================================= */
 
 @media (max-width: 1100px) {
-
-  .progress-container {
-    padding: 28px;
-  }
 
   .course-progress-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -373,26 +350,18 @@
 
 @media (max-width: 720px) {
 
-  .progress-container {
-    padding: 20px;
-  }
-
   .progress-heading {
     align-items: flex-start;
     flex-direction: column;
-    padding: 22px;
+    padding: var(--spacing-md);
   }
 
   .progress-heading h1 {
     font-size: 26px;
   }
 
-  .progress-back-btn {
-    width: fit-content;
-  }
-
   .overall-progress-card {
-    padding: 22px;
+    padding: var(--spacing-md);
   }
 
   .overall-progress-top {
@@ -422,20 +391,16 @@
 
 @media (max-width: 450px) {
 
-  .progress-container {
-    padding: 16px;
-  }
-
   .progress-heading {
-    padding: 19px;
+    padding: var(--spacing-base);
   }
 
   .overall-progress-card {
-    padding: 19px;
+    padding: var(--spacing-base);
   }
 
   .course-progress-card {
-    padding: 18px;
+    padding: var(--spacing-base);
   }
 
   .course-progress-card h3 {
@@ -458,4 +423,4 @@
     box-sizing: border-box;
   }
 
-} 
+}

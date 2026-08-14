@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import "../../App.css";
-
-
 /* =========================================================
    QUIZ DATA
 ========================================================= */
@@ -10,7 +7,7 @@ const courses = [
   {
     name: "Web Development",
     category: "DEVELOPMENT",
-    icon: "💻",
+    icon: <i className="fa-solid fa-laptop-code"></i>,
     modules: [
       {
         title: "Module 1: HTML Fundamentals",
@@ -145,7 +142,7 @@ const courses = [
   {
     name: "Java Programming",
     category: "PROGRAMMING",
-    icon: "☕",
+    icon: <i className="fa-solid fa-mug-hot"></i>,
     modules: [
       {
         title: "Module 1: Java Fundamentals",
@@ -265,7 +262,7 @@ const courses = [
   {
     name: "Database Management",
     category: "DATABASE",
-    icon: "🗄️",
+    icon: <i className="fa-solid fa-database"></i>,
     modules: [
       {
         title: "Module 1: Database Fundamentals",
@@ -385,7 +382,7 @@ const courses = [
   {
     name: "Python Programming",
     category: "PROGRAMMING",
-    icon: "🐍",
+    icon: <i className="fa-solid fa-code"></i>,
     modules: [
       {
         title: "Module 1: Python Basics",
@@ -485,7 +482,7 @@ const courses = [
   {
     name: "Data Analytics",
     category: "DATA",
-    icon: "📊",
+    icon: <i className="fa-solid fa-chart-bar"></i>,
     modules: [
       {
         title: "Module 1: Data Analytics Basics",
@@ -630,7 +627,7 @@ const courses = [
   {
     name: "Cyber Security Fundamentals",
     category: "SECURITY",
-    icon: "🔐",
+    icon: <i className="fa-solid fa-shield-halved"></i>,
     modules: [
       {
         title: "Module 1: Cyber Security Basics",
@@ -869,39 +866,33 @@ function Quizzes() {
      COMMON STYLES
   ===================================================== */
 
-  const pageStyle = {
-    minHeight: "100vh",
-    padding: "40px 20px",
-    background: "#f5f7fb",
-    boxSizing: "border-box",
-  };
+  const pageStyle = {};
 
   const containerStyle = {
     width: "100%",
-    maxWidth: "1150px",
-    margin: "0 auto",
   };
 
   const headerStyle = {
-    background: "#ffffff",
-    padding: "30px",
-    borderRadius: "18px",
-    marginBottom: "25px",
-    boxShadow: "0 5px 20px rgba(0,0,0,0.08)",
+    background: "var(--surface-card)",
+    padding: "var(--spacing-lg)",
+    borderRadius: "var(--rounded-xl)",
+    marginBottom: "var(--spacing-lg)",
+    border: "1px solid var(--hairline)",
+    boxShadow: "0 4px 16px rgba(12, 10, 9, 0.04)",
   };
 
   const gridStyle = {
     display: "grid",
     gridTemplateColumns:
-      "repeat(auto-fit, minmax(260px, 1fr))",
-    gap: "20px",
+      "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "24px",
   };
 
   const cardStyle = {
-    background: "#ffffff",
-    borderRadius: "18px",
-    padding: "25px",
-    boxShadow: "0 5px 20px rgba(0,0,0,0.08)",
+    background: "var(--surface-card)",
+    borderRadius: "var(--rounded-xl)",
+    padding: "28px",
+    boxShadow: "0 4px 16px rgba(12, 10, 9, 0.04)",
     boxSizing: "border-box",
   };
 
@@ -910,8 +901,8 @@ function Quizzes() {
     padding: "13px 18px",
     border: "none",
     borderRadius: "10px",
-    background: "#4f46e5",
-    color: "#ffffff",
+    background: "var(--primary)",
+    color: "var(--surface-card)",
     fontSize: "15px",
     fontWeight: "600",
     cursor: "pointer",
@@ -921,7 +912,7 @@ function Quizzes() {
   const backButton = {
     border: "none",
     background: "transparent",
-    color: "#4f46e5",
+    color: "var(--primary)",
     fontSize: "15px",
     fontWeight: "600",
     cursor: "pointer",
@@ -941,31 +932,34 @@ function Quizzes() {
           <div style={headerStyle}>
             <div
               style={{
-                color: "#4f46e5",
-                fontSize: "13px",
-                fontWeight: "700",
-                letterSpacing: "1px",
+                color: "var(--ink)",
+                fontSize: "10px",
+                fontWeight: "800",
+                letterSpacing: "0.8px",
                 marginBottom: "8px",
+                textTransform: "uppercase",
               }}
             >
-              QUIZZES
+              STUDENT AREA
             </div>
 
             <h1
               style={{
-                margin: "0 0 10px",
-                fontSize: "32px",
-                color: "#1f2937",
+                margin: "0 0 var(--spacing-xs)",
+                fontSize: "30px",
+                color: "var(--ink)",
+                fontFamily: "'EB Garamond', serif",
               }}
             >
-              Quizzes 🧠
+              Quizzes
             </h1>
 
             <p
               style={{
                 margin: 0,
-                color: "#6b7280",
-                fontSize: "16px",
+                color: "var(--body)",
+                fontSize: "13px",
+                lineHeight: "1.7",
               }}
             >
               Test your knowledge across all six courses.
@@ -980,20 +974,23 @@ function Quizzes() {
                   ...cardStyle,
                   cursor: "pointer",
                   transition: "0.2s",
+                  border: "1px solid var(--hairline)",
                 }}
                 onClick={() => openCourse(item.name)}
               >
                 <div
                   style={{
-                    width: "60px",
-                    height: "60px",
-                    borderRadius: "15px",
-                    background: "#eef2ff",
+                    width: "52px",
+                    height: "52px",
+                    borderRadius: "var(--rounded-lg)",
+                    background: "var(--canvas-soft)",
+                    border: "1px solid var(--hairline)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "30px",
-                    marginBottom: "18px",
+                    fontSize: "24px",
+                    marginBottom: "20px",
+                    color: "var(--ink)",
                   }}
                 >
                   {item.icon}
@@ -1001,10 +998,12 @@ function Quizzes() {
 
                 <div
                   style={{
-                    color: "#4f46e5",
-                    fontSize: "12px",
-                    fontWeight: "700",
+                    color: "var(--ink)",
+                    fontSize: "10px",
+                    fontWeight: "800",
+                    letterSpacing: "0.8px",
                     marginBottom: "8px",
+                    textTransform: "uppercase",
                   }}
                 >
                   {item.category}
@@ -1012,9 +1011,11 @@ function Quizzes() {
 
                 <h2
                   style={{
-                    margin: "0 0 10px",
-                    color: "#1f2937",
-                    fontSize: "21px",
+                    margin: "0 0 12px",
+                    color: "var(--ink)",
+                    fontSize: "18px",
+                    fontWeight: "600",
+                    lineHeight: "1.4",
                   }}
                 >
                   {item.name}
@@ -1022,23 +1023,30 @@ function Quizzes() {
 
                 <p
                   style={{
-                    color: "#6b7280",
+                    color: "var(--muted)",
                     lineHeight: "1.5",
-                    margin: 0,
+                    margin: "0 0 20px",
+                    fontSize: "13px",
                   }}
                 >
-                  {item.modules.length} modules available
+                  {item.modules.length} modules
                 </p>
 
                 <button
                   type="button"
-                  style={primaryButton}
+                  style={{
+                    ...primaryButton,
+                    borderRadius: "var(--rounded-pill)",
+                    padding: "10px 20px",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                  }}
                   onClick={(event) => {
                     event.stopPropagation();
                     openCourse(item.name);
                   }}
                 >
-                  Open Course Quiz →
+                  Start Quiz
                 </button>
               </div>
             ))}
@@ -1069,7 +1077,7 @@ function Quizzes() {
           <div style={headerStyle}>
             <div
               style={{
-                color: "#4f46e5",
+                color: "var(--primary)",
                 fontSize: "13px",
                 fontWeight: "700",
                 letterSpacing: "1px",
@@ -1082,7 +1090,7 @@ function Quizzes() {
             <h1
               style={{
                 margin: "0 0 10px",
-                color: "#1f2937",
+                color: "var(--ink)",
               }}
             >
               {course?.icon} {course?.name}
@@ -1091,7 +1099,7 @@ function Quizzes() {
             <p
               style={{
                 margin: 0,
-                color: "#6b7280",
+                color: "var(--body)",
               }}
             >
               Select a module to start your quiz.
@@ -1111,21 +1119,24 @@ function Quizzes() {
                   style={{
                     ...cardStyle,
                     cursor: "pointer",
+                    border: "1px solid var(--hairline)",
                   }}
                   onClick={() => openModule(item.title)}
                 >
                   <div
                     style={{
-                      width: "45px",
-                      height: "45px",
-                      borderRadius: "50%",
-                      background: "#4f46e5",
-                      color: "#ffffff",
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "var(--rounded-full)",
+                      background: "var(--canvas-soft)",
+                      color: "var(--ink)",
+                      border: "2px solid var(--hairline-strong)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       fontWeight: "700",
-                      marginBottom: "18px",
+                      fontSize: "15px",
+                      marginBottom: "20px",
                     }}
                   >
                     {index + 1}
@@ -1133,9 +1144,11 @@ function Quizzes() {
 
                   <h2
                     style={{
-                      margin: "0 0 10px",
-                      color: "#1f2937",
-                      fontSize: "20px",
+                      margin: "0 0 12px",
+                      color: "var(--ink)",
+                      fontSize: "16px",
+                      fontWeight: "600",
+                      lineHeight: "1.4",
                     }}
                   >
                     {item.title}
@@ -1143,8 +1156,9 @@ function Quizzes() {
 
                   <p
                     style={{
-                      margin: "0 0 8px",
-                      color: "#6b7280",
+                      margin: "0 0 16px",
+                      color: "var(--muted)",
+                      fontSize: "13px",
                     }}
                   >
                     {item.questions.length} Questions
@@ -1153,29 +1167,33 @@ function Quizzes() {
                   {savedScore !== null && (
                     <p
                       style={{
-                        margin: "8px 0",
-                        color:
-                          Number(savedScore) >= 75
-                            ? "#16a34a"
-                            : "#dc2626",
+                        margin: "0 0 16px",
+                        color: "var(--body-strong)",
                         fontWeight: "600",
+                        fontSize: "14px",
                       }}
                     >
-                      Previous Score: {savedScore}%
+                      Last Score: {savedScore}%
                     </p>
                   )}
 
                   <button
                     type="button"
-                    style={primaryButton}
+                    style={{
+                      ...primaryButton,
+                      borderRadius: "var(--rounded-pill)",
+                      padding: "10px 20px",
+                      fontSize: "14px",
+                      fontWeight: "500",
+                    }}
                     onClick={(event) => {
                       event.stopPropagation();
                       openModule(item.title);
                     }}
                   >
                     {savedScore !== null
-                      ? "Retake Quiz →"
-                      : "Start Quiz →"}
+                      ? "Retake Quiz"
+                      : "Start Quiz"}
                   </button>
                 </div>
               );
@@ -1213,7 +1231,7 @@ function Quizzes() {
           >
             <div
               style={{
-                color: "#4f46e5",
+                color: "var(--primary)",
                 fontWeight: "700",
                 letterSpacing: "1px",
                 marginBottom: "12px",
@@ -1225,7 +1243,7 @@ function Quizzes() {
             <h1
               style={{
                 margin: "0 0 25px",
-                color: "#1f2937",
+                color: "var(--ink)",
               }}
             >
               Your Score
@@ -1242,18 +1260,18 @@ function Quizzes() {
                 justifyContent: "center",
                 background:
                   score >= 75
-                    ? "#dcfce7"
-                    : "#fee2e2",
+                    ? "var(--canvas-soft)"
+                    : "var(--canvas-soft)",
                 color:
                   score >= 75
-                    ? "#15803d"
-                    : "#dc2626",
+                    ? "var(--ink)"
+                    : "var(--ink)",
                 fontSize: "38px",
                 fontWeight: "800",
                 border:
                   score >= 75
-                    ? "8px solid #86efac"
-                    : "8px solid #fca5a5",
+                    ? "8px solid var(--hairline)"
+                    : "8px solid var(--hairline)",
               }}
             >
               {score}%
@@ -1261,13 +1279,13 @@ function Quizzes() {
 
             {score >= 75 ? (
               <>
-                <h2 style={{ color: "#15803d" }}>
-                  🎉 Congratulations!
+                <h2 style={{ color: "var(--ink)" }}>
+                  Congratulations!
                 </h2>
 
                 <p
                   style={{
-                    color: "#6b7280",
+                    color: "var(--body)",
                     fontSize: "16px",
                   }}
                 >
@@ -1277,7 +1295,7 @@ function Quizzes() {
 
                 <p
                   style={{
-                    color: "#15803d",
+                    color: "var(--ink)",
                     fontWeight: "700",
                   }}
                 >
@@ -1286,13 +1304,13 @@ function Quizzes() {
               </>
             ) : (
               <>
-                <h2 style={{ color: "#dc2626" }}>
+                <h2 style={{ color: "var(--ink)" }}>
                   Keep Learning!
                 </h2>
 
                 <p
                   style={{
-                    color: "#6b7280",
+                    color: "var(--body)",
                     fontSize: "16px",
                   }}
                 >
@@ -1301,7 +1319,7 @@ function Quizzes() {
 
                 <p
                   style={{
-                    color: "#dc2626",
+                    color: "var(--ink)",
                     fontWeight: "600",
                   }}
                 >
@@ -1325,8 +1343,8 @@ function Quizzes() {
                   padding: "12px 22px",
                   border: "none",
                   borderRadius: "10px",
-                  background: "#4f46e5",
-                  color: "#ffffff",
+                  background: "var(--primary)",
+                  color: "var(--surface-card)",
                   fontWeight: "600",
                   cursor: "pointer",
                 }}
@@ -1339,10 +1357,10 @@ function Quizzes() {
                 type="button"
                 style={{
                   padding: "12px 22px",
-                  border: "1px solid #d1d5db",
+                  border: "1px solid var(--hairline)",
                   borderRadius: "10px",
-                  background: "#ffffff",
-                  color: "#374151",
+                  background: "var(--surface-card)",
+                  color: "var(--body-strong)",
                   fontWeight: "600",
                   cursor: "pointer",
                 }}
@@ -1380,7 +1398,7 @@ function Quizzes() {
         <div style={headerStyle}>
           <div
             style={{
-              color: "#4f46e5",
+              color: "var(--primary)",
               fontSize: "13px",
               fontWeight: "700",
               letterSpacing: "1px",
@@ -1393,7 +1411,7 @@ function Quizzes() {
           <h1
             style={{
               margin: "0 0 12px",
-              color: "#1f2937",
+              color: "var(--ink)",
               fontSize: "28px",
             }}
           >
@@ -1402,7 +1420,7 @@ function Quizzes() {
 
           <div
             style={{
-              color: "#6b7280",
+              color: "var(--body)",
               fontWeight: "600",
             }}
           >
@@ -1422,7 +1440,7 @@ function Quizzes() {
             style={{
               marginTop: 0,
               marginBottom: "25px",
-              color: "#1f2937",
+              color: "var(--ink)",
               lineHeight: "1.4",
             }}
           >
@@ -1455,12 +1473,12 @@ function Quizzes() {
                       textAlign: "left",
                       borderRadius: "12px",
                       border: isSelected
-                        ? "2px solid #4f46e5"
-                        : "1px solid #d1d5db",
+                        ? "2px solid var(--primary)"
+                        : "1px solid var(--hairline)",
                       background: isSelected
-                        ? "#eef2ff"
-                        : "#ffffff",
-                      color: "#1f2937",
+                        ? "var(--surface-strong)"
+                        : "var(--surface-card)",
+                      color: "var(--ink)",
                       cursor: "pointer",
                       fontSize: "15px",
                       display: "flex",
@@ -1475,11 +1493,11 @@ function Quizzes() {
                         minWidth: "34px",
                         borderRadius: "50%",
                         background: isSelected
-                          ? "#4f46e5"
-                          : "#f3f4f6",
+                          ? "var(--primary)"
+                          : "var(--canvas-soft)",
                         color: isSelected
-                          ? "#ffffff"
-                          : "#374151",
+                          ? "var(--surface-card)"
+                          : "var(--body-strong)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -1510,9 +1528,9 @@ function Quizzes() {
               borderRadius: "10px",
               background:
                 selectedAnswer === null
-                  ? "#d1d5db"
-                  : "#4f46e5",
-              color: "#ffffff",
+                  ? "var(--hairline)"
+                  : "var(--primary)",
+              color: "var(--surface-card)",
               fontSize: "16px",
               fontWeight: "700",
               cursor:
