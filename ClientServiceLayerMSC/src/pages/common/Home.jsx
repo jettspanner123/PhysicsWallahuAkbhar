@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
 import { ReactLenis } from "lenis/react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import "./Home.css";
 
 function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [timer, setTimer] = useState("0:00");
   const [progressVal, setProgressVal] = useState(0);
+
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   // Simple simulator for the play button waveform state
   useEffect(() => {
@@ -40,6 +48,54 @@ function Home() {
     20, 35, 15, 40, 25, 50, 30, 45, 10, 35, 25, 40, 15, 30, 25, 45, 20, 35, 15, 50, 
     25, 40, 10, 35, 20, 45, 30, 40, 15, 30, 25, 50, 20, 35, 15, 40, 30, 45, 10, 35
   ];
+
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+      }
+    }
+  };
+
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: 60 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+      }
+    }
+  };
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+      }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      }
+    }
+  };
 
   return (
     <ReactLenis root>
@@ -76,21 +132,28 @@ function Home() {
           </div>
 
           <div className="home-container hero-inner-container">
-            <div className="hero-content">
-              <div className="badge-pill">A New Way to Learn</div>
+            <motion.div 
+              className="hero-content"
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+            >
+              <motion.div className="badge-pill" variants={fadeInUp}>
+                A New Way to Learn
+              </motion.div>
               
-              <h1 className="hero-title">
+              <motion.h1 className="hero-title" variants={fadeInUp}>
                 Learn at the
                 <br />
                 speed of thought.
-              </h1>
+              </motion.h1>
 
-              <p className="hero-description">
+              <motion.p className="hero-description" variants={fadeInUp}>
                 Explore structural modules, engage with self-paced checkpoints, 
                 and follow a learning methodology designed like a quietly editorial magazine.
-              </p>
+              </motion.p>
 
-              <div className="hero-actions">
+              <motion.div className="hero-actions" variants={fadeInUp}>
                 <a href="/courses">
                   <button className="btn-primary">Explore Courses</button>
                 </a>
@@ -98,10 +161,16 @@ function Home() {
                 <a href="/signup">
                   <button className="btn-outline">Get Started</button>
                 </a>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            <div className="hero-media">
+            <motion.div 
+              className="hero-media"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInLeft}
+            >
               {/* Audio Waveform Card - Signature Component */}
               <div className="audio-waveform-card">
                 <div className="waveform-header">
@@ -154,20 +223,37 @@ function Home() {
                   <span>3:15</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Benefits Section */}
         <section className="home-features">
           <div className="home-container">
-            <div className="features-header">
+            <motion.div 
+              className="features-header"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              variants={fadeInUp}
+            >
               <h2 className="features-title">Why choose our platform?</h2>
               <p className="features-sub">We focus on depth and retention, eliminating the noise of traditional online platforms.</p>
-            </div>
+            </motion.div>
 
-            <div className="features-grid">
-              <div className="feature-card">
+            <motion.div 
+              className="features-grid"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={staggerContainer}
+            >
+              <motion.div 
+                className="feature-card"
+                variants={scaleIn}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
                 <div>
                   <div className="feature-icon-wrapper">
                     <i className="fa-solid fa-book-open"></i>
@@ -178,9 +264,14 @@ function Home() {
                 <a href="/courses" className="btn-outline" style={{ height: "32px", fontSize: "13px", padding: "0 14px", marginTop: "16px", alignSelf: "flex-start" }}>
                   Read Guide
                 </a>
-              </div>
+              </motion.div>
 
-              <div className="feature-card">
+              <motion.div 
+                className="feature-card"
+                variants={scaleIn}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
                 <div>
                   <div className="feature-icon-wrapper">
                     <i className="fa-solid fa-pen-fancy"></i>
@@ -191,10 +282,15 @@ function Home() {
                 <a href="/courses" className="btn-outline" style={{ height: "32px", fontSize: "13px", padding: "0 14px", marginTop: "16px", alignSelf: "flex-start" }}>
                   Try Quiz
                 </a>
-              </div>
+              </motion.div>
 
               {/* Special Gradient Orb Card */}
-              <div className="gradient-orb-card">
+              <motion.div 
+                className="gradient-orb-card"
+                variants={scaleIn}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
                 <div className="card-orb"></div>
                 <div className="gradient-orb-card-content">
                   <div className="feature-icon-wrapper">
@@ -206,15 +302,21 @@ function Home() {
                 <a href="/signup" className="btn-outline" style={{ height: "32px", fontSize: "13px", padding: "0 14px", marginTop: "16px", alignSelf: "flex-start", position: "relative", zIndex: 5 }}>
                   View Dashboard
                 </a>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
 
         {/* Editorial Philosophy Section */}
         <section className="home-philosophy">
-          <div className="home-container philosophy-inner-container">
-            <div className="philosophy-left">
+          <motion.div 
+            className="home-container philosophy-inner-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={staggerContainer}
+          >
+            <motion.div className="philosophy-left" variants={fadeInUp}>
               <h2>
                 Our Philosophy.
                 <br />
@@ -222,16 +324,16 @@ function Home() {
                 <br />
                 it is a practice.
               </h2>
-            </div>
-            <div className="philosophy-right">
+            </motion.div>
+            <motion.div className="philosophy-right" variants={fadeInUp}>
               <p>
                 Traditional learning platforms gamify education to increase session lengths, rewarding raw speed over deep comprehension. We reject the constant noise of notifications and badges.
               </p>
               <p>
                 By borrowing layout principles from editorial magazines, we cultivate a digital reading space where your attention is protected. We present information clearly, respect whitespace, and rely on quality content rather than flashing lights.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* Pre-footer CTA */}
@@ -239,7 +341,13 @@ function Home() {
           <div className="orb-container">
             <div className="orb orb-peach" style={{ top: "10%", left: "30%" }}></div>
           </div>
-          <div className="home-container">
+          <motion.div 
+            className="home-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={fadeInUp}
+          >
             <h2 className="cta-title">Begin your learning practice today.</h2>
             <div className="cta-button-container">
               <a href="/signup">
@@ -248,7 +356,7 @@ function Home() {
                 </button>
               </a>
             </div>
-          </div>
+          </motion.div>
         </section>
       </main>
 
