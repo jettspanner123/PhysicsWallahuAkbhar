@@ -8,13 +8,6 @@ function Home() {
   const [timer, setTimer] = useState("0:00");
   const [progressVal, setProgressVal] = useState(0);
 
-  const { scrollYProgress } = useScroll();
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
   // Simple simulator for the play button waveform state
   useEffect(() => {
     let interval;
@@ -169,7 +162,7 @@ function Home() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              variants={fadeInLeft}
+              variants={fadeInUp}
             >
               {/* Audio Waveform Card - Signature Component */}
               <div className="audio-waveform-card">
