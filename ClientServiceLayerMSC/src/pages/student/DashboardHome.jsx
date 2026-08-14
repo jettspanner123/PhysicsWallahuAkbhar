@@ -54,7 +54,7 @@ function DashboardHome() {
 
       <section className="dash-welcome">
         <div className="dash-welcome-content">
-          <h1>Welcome back, Student</h1>
+          <h1>Welcome back, Student 👋</h1>
           <p>
             Continue your learning journey, explore your courses
             and keep making progress toward your goals.

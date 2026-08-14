@@ -53,12 +53,18 @@ let UserServices = class UserServices {
         }
         return user;
     }
-    async updateProfile(id, name) {
+    async updateProfile(id, name, email) {
         const user = await this.userRepository.findById(id);
         if (user === null) {
             throw new UserNotFoundError_1.UserNotFoundError(id);
         }
-        return this.userRepository.updateProfile(id, name);
+        if (email && email !== user.email) {
+            const existingUser = await this.userRepository.findByEmail(email);
+            if (existingUser !== null) {
+                throw new EmailAlreadyExistsError_1.EmailAlreadyExistsError(email);
+            }
+        }
+        return this.userRepository.updateProfile(id, name, email);
     }
 };
 exports.UserServices = UserServices;

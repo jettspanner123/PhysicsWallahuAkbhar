@@ -30,7 +30,7 @@ function MyCourses() {
             STUDENT AREA
           </span>
           <h1>
-            My Courses
+            My Courses 📚
           </h1>
           <p>
             Manage your enrolled courses and continue

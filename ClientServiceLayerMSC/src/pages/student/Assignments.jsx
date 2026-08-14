@@ -144,7 +144,7 @@ function Assignments() {
           <span className="assignments-label">
             STUDENT AREA
           </span>
-          <h1>Assignments</h1>
+          <h1>Assignments 📝</h1>
           <p>
             View your course assignments, deadlines and
             submission status in one place.

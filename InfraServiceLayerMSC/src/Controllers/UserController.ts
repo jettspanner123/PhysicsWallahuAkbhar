@@ -81,10 +81,17 @@ export class UserController {
         @Body() updateProfileDto: UpdateProfileDto
     ): Promise<UserModel> {
         try {
-            return await this.userServices.updateProfile(id, updateProfileDto.name);
+            return await this.userServices.updateProfile(
+                id, 
+                updateProfileDto.name, 
+                updateProfileDto.email
+            );
         } catch (error: unknown) {
             if (error instanceof UserNotFoundError) {
                 throw new NotFoundException(error.message);
+            }
+            if (error instanceof EmailAlreadyExistsError) {
+                throw new ConflictException(error.message);
             }
             throw new InternalServerErrorException('An unexpected error occurred updating profile.');
         }

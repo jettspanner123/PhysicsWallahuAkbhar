@@ -64,7 +64,7 @@ function Certificates() {
       <div className="certificates-heading">
         <div>
           <span className="dashboard-label">STUDENT AREA</span>
-          <h1>Certificates</h1>
+          <h1>Certificates 🏆</h1>
           <p>View your completed courses and earned certificates.</p>
         </div>
       </div>

@@ -951,7 +951,7 @@ function Quizzes() {
                 fontFamily: "'EB Garamond', serif",
               }}
             >
-              Quizzes
+              Quizzes 🧠
             </h1>
 
             <p

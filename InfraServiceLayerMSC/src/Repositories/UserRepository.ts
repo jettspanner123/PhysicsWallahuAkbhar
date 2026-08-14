@@ -87,10 +87,20 @@ export class UserRepository {
         return user.password;
     }
 
-    public async updateProfile(id: string, name: string): Promise<UserModel> {
+    public async updateProfile(id: string, name?: string, email?: string): Promise<UserModel> {
+        const updateData: { name?: string; email?: string } = {};
+        
+        if (name !== undefined) {
+            updateData.name = name;
+        }
+        
+        if (email !== undefined) {
+            updateData.email = email;
+        }
+
         const user = await this.databaseProvider.userModel.update({
             where: { id: id },
-            data: { name: name },
+            data: updateData,
         });
 
         return new UserModel(

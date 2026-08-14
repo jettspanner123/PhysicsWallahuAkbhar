@@ -43,7 +43,7 @@ function Progress() {
           </span>
 
           <h1>
-            My Progress
+            My Progress 📈
           </h1>
 
           <p>

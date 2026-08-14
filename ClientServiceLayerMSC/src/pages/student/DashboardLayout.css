@@ -81,16 +81,25 @@
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 500;
-  color: var(--muted) !important;
-  text-decoration: none !important;
-  padding: 6px 12px;
-  border-radius: var(--rounded-md);
-  transition: background 0.15s ease, color 0.15s ease;
+  color: var(--on-primary);
+  background: var(--primary);
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: var(--rounded-pill);
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .dash-logout-btn:hover {
-  background: var(--surface-strong);
-  color: var(--ink) !important;
+  background: var(--primary-active);
+}
+
+.dash-logout-btn:active {
+  transform: scale(0.98);
+}
+
+.dash-logout-btn i {
+  font-size: 14px;
 }
 
 

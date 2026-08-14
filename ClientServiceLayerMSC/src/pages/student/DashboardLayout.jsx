@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate, Link } from "react-router-dom";
+import { AuthServices } from "../../Services/AuthServices";
+import ConfirmDialog from "../../components/ConfirmDialog";
 import "../common/Home.css";
 import "./DashboardLayout.css";
 
@@ -69,13 +71,52 @@ const breadcrumbLabels = {
 function DashboardLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userName, setUserName] = useState("Student");
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
+  const authServices = AuthServices.getInstance();
 
   const currentPath = location.pathname;
   const breadcrumbLabel = breadcrumbLabels[currentPath];
   const isHome = currentPath === "/dashboard";
+
+  // Load user name on mount and when localStorage changes
+  useEffect(() => {
+    const userInfo = authServices.getUserInfo();
+    if (userInfo.name) {
+      setUserName(userInfo.name);
+    }
+
+    // Listen for storage changes (in case updated in another tab/component)
+    const handleStorageChange = () => {
+      const updatedInfo = authServices.getUserInfo();
+      if (updatedInfo.name) {
+        setUserName(updatedInfo.name);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [authServices]);
+
+  const handleLogoutClick = () => {
+    setShowLogoutDialog(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    authServices.logout();
+    setShowLogoutDialog(false);
+    navigate("/login");
+  };
+
+  const handleLogoutCancel = () => {
+    setShowLogoutDialog(false);
+  };
 
 
   return (
@@ -94,13 +135,13 @@ function DashboardLayout() {
               <span className="dash-user-avatar">
                 <i className="fa-solid fa-user"></i>
               </span>
-              <span className="dash-user-name">Student</span>
+              <span className="dash-user-name">{userName}</span>
             </div>
 
-            <Link to="/login" className="dash-logout-btn">
+            <button onClick={handleLogoutClick} className="dash-logout-btn">
               <i className="fa-solid fa-right-from-bracket"></i>
               <span>Logout</span>
-            </Link>
+            </button>
           </div>
         </header>
 
@@ -198,6 +239,18 @@ function DashboardLayout() {
           </main>
         </div>
       </div>
+
+      {/* Logout Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={showLogoutDialog}
+        title="Confirm Logout"
+        message="Are you sure you want to logout? You'll need to login again to access your dashboard."
+        confirmText="Yes, Logout"
+        cancelText="Cancel"
+        onConfirm={handleLogoutConfirm}
+        onCancel={handleLogoutCancel}
+        variant="warning"
+      />
     </div>
   );
 }

@@ -61,11 +61,14 @@ let UserController = class UserController {
     }
     async updateProfile(id, updateProfileDto) {
         try {
-            return await this.userServices.updateProfile(id, updateProfileDto.name);
+            return await this.userServices.updateProfile(id, updateProfileDto.name, updateProfileDto.email);
         }
         catch (error) {
             if (error instanceof UserNotFoundError_1.UserNotFoundError) {
                 throw new common_1.NotFoundException(error.message);
+            }
+            if (error instanceof EmailAlreadyExistsError_1.EmailAlreadyExistsError) {
+                throw new common_1.ConflictException(error.message);
             }
             throw new common_1.InternalServerErrorException('An unexpected error occurred updating profile.');
         }

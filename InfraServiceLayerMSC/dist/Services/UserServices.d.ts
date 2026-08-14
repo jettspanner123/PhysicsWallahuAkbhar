@@ -8,5 +8,5 @@ export declare class UserServices {
     signup(email: string, password: string, name: string, role: string): Promise<UserModel>;
     login(email: string, password: string): Promise<UserModel>;
     getProfile(id: string): Promise<UserModel>;
-    updateProfile(id: string, name: string): Promise<UserModel>;
+    updateProfile(id: string, name?: string, email?: string): Promise<UserModel>;
 }

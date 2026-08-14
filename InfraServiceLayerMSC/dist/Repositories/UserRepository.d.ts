@@ -7,5 +7,5 @@ export declare class UserRepository {
     findByEmail(email: string): Promise<UserModel | null>;
     findById(id: string): Promise<UserModel | null>;
     getPasswordHashByEmail(email: string): Promise<string | null>;
-    updateProfile(id: string, name: string): Promise<UserModel>;
+    updateProfile(id: string, name?: string, email?: string): Promise<UserModel>;
 }

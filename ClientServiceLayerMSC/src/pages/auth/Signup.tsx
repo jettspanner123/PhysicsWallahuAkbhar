@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { AuthServices } from "../../Services/AuthServices";
 import { ResponseModel } from "../../Models/ResponseModel";
-import { AuthResponseModel } from "../../Models/AuthResponseModel";
 import "../common/Home.css";
 import "./Login.css";
 
@@ -38,10 +37,10 @@ function Signup(): React.JSX.Element {
         credentials.confirmPassword
       );
     },
-    onSuccess: (data: ResponseModel<AuthResponseModel>) => {
+    onSuccess: (data: ResponseModel<any>) => {
       if (data.success && data.data) {
         toast.success("Account created successfully!", {
-          description: `Welcome, ${data.data.name}! Redirecting to dashboard...`,
+          description: `Welcome, ${data.data.user.name}! Redirecting to dashboard...`,
         });
 
         // Small delay for better UX

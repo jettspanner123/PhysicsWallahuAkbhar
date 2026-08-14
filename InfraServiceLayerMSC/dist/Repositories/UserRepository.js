@@ -57,10 +57,17 @@ let UserRepository = class UserRepository {
         }
         return user.password;
     }
-    async updateProfile(id, name) {
+    async updateProfile(id, name, email) {
+        const updateData = {};
+        if (name !== undefined) {
+            updateData.name = name;
+        }
+        if (email !== undefined) {
+            updateData.email = email;
+        }
         const user = await this.databaseProvider.userModel.update({
             where: { id: id },
-            data: { name: name },
+            data: updateData,
         });
         return new UserModel_1.UserModel(user.id, user.email, user.name, user.role, user.createdAt, user.updatedAt);
     }

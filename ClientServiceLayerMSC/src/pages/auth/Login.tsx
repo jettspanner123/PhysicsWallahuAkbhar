@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { AuthServices } from "../../Services/AuthServices";
 import { ResponseModel } from "../../Models/ResponseModel";
-import { AuthResponseModel } from "../../Models/AuthResponseModel";
 import "../common/Home.css";
 import "./Login.css";
 
@@ -26,10 +25,10 @@ function Login(): React.JSX.Element {
     mutationFn: async (credentials: { email: string; password: string }) => {
       return await authServices.login(credentials.email, credentials.password);
     },
-    onSuccess: (data: ResponseModel<AuthResponseModel>) => {
+    onSuccess: (data: ResponseModel<any>) => {
       if (data.success && data.data) {
         toast.success("Login successful!", {
-          description: `Welcome back, ${data.data.name}!`,
+          description: `Welcome back, ${data.data.user.name}!`,
         });
         
         // Small delay for better UX

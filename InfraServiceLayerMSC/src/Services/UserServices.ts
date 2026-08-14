@@ -65,12 +65,20 @@ export class UserServices {
         return user;
     }
 
-    public async updateProfile(id: string, name: string): Promise<UserModel> {
+    public async updateProfile(id: string, name?: string, email?: string): Promise<UserModel> {
         const user = await this.userRepository.findById(id);
         if (user === null) {
             throw new UserNotFoundError(id);
         }
 
-        return this.userRepository.updateProfile(id, name);
+        // Check if email is being changed and if it already exists
+        if (email && email !== user.email) {
+            const existingUser = await this.userRepository.findByEmail(email);
+            if (existingUser !== null) {
+                throw new EmailAlreadyExistsError(email);
+            }
+        }
+
+        return this.userRepository.updateProfile(id, name, email);
     }
 }
