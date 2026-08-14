@@ -1,0 +1,457 @@
+/* ==========================================================================
+   COURSES DETAILS STYLESHEET
+   Implements ElevenLabs design tokens for module/lesson explorer views.
+   ========================================================================== */
+
+.course-details-page {
+  background-color: var(--canvas-soft);
+  padding: 48px 0;
+  min-height: calc(100vh - 64px - 320px); /* Adjust to fit between navbar and footer */
+  width: 100%;
+}
+
+.course-details-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   BADGES & LABELS
+   ========================================================================== */
+.course-label,
+.lesson-badge,
+.module-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: var(--rounded-full);
+  background-color: var(--surface-strong);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  font-size: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+.course-details-header h1,
+.lesson-content-card h1,
+.lesson-section h1 {
+  font-family: 'EB Garamond', serif;
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  font-size: 38px;
+  color: var(--ink);
+  margin: var(--spacing-sm) 0 var(--spacing-xs);
+}
+
+.modules-section h2,
+.lesson-section h2,
+.lesson-topic-card h2,
+.lesson-example-card h2,
+.lesson-summary-card h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--spacing-sm);
+  letter-spacing: -0.01em;
+}
+
+.course-description {
+  color: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================================
+   MODULE CARDS GRID
+   ========================================================================== */
+.modules-section {
+  margin-top: var(--spacing-lg);
+}
+
+.modules-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.module-card {
+  display: flex;
+  gap: var(--spacing-lg);
+  background: var(--surface-card);
+  padding: var(--spacing-xl);
+  border-radius: var(--rounded-xl);
+  cursor: pointer;
+  border: 1px solid var(--hairline);
+  transition: box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+  box-sizing: border-box;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--hairline-strong);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+}
+
+.module-number {
+  min-width: 44px;
+  max-width: 44px;
+  height: 44px;
+  border-radius: var(--rounded-lg);
+  background: var(--surface-strong);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.module-content {
+  flex: 1;
+}
+
+.module-content h3 {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.module-content p {
+  margin: 0 0 var(--spacing-base);
+  color: var(--body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.module-action {
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  transition: opacity 0.15s ease;
+}
+
+.module-card:hover .module-action {
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   NAVIGATION BACK BUTTON
+   ========================================================================== */
+.back-modules-btn {
+  border: 1px solid var(--hairline);
+  background: var(--surface-card);
+  color: var(--ink);
+  padding: 8px 16px;
+  border-radius: var(--rounded-full);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: var(--spacing-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.back-modules-btn:hover {
+  background: var(--surface-strong);
+  border-color: var(--hairline-strong);
+}
+
+/* ==========================================================================
+   LESSON SECTION & ITERATORS
+   ========================================================================== */
+.lesson-section {
+  background: var(--surface-card);
+  padding: var(--spacing-xl);
+  border-radius: var(--rounded-xl);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+}
+
+.lesson-section h2 {
+  margin-top: var(--spacing-xl);
+}
+
+.lesson-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+}
+
+.lesson-item {
+  width: 100%;
+  border: 1px solid var(--hairline);
+  background: var(--surface-card);
+  border-radius: var(--rounded-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+
+.lesson-item:hover {
+  border-color: var(--hairline-strong);
+  background-color: var(--canvas-soft);
+  transform: translateX(4px);
+}
+
+.lesson-number {
+  min-width: 32px;
+  height: 32px;
+  border-radius: var(--rounded-md);
+  background: var(--surface-strong);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.lesson-name {
+  flex: 1;
+  color: var(--ink);
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+.lesson-arrow {
+  color: var(--muted);
+  font-size: 16px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.lesson-item:hover .lesson-arrow {
+  color: var(--ink);
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   LESSON CONTENT CARD
+   ========================================================================== */
+.lesson-content-card {
+  background: var(--surface-card);
+  padding: var(--spacing-xl);
+  border-radius: var(--rounded-xl);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+  box-sizing: border-box;
+}
+
+.lesson-header {
+  border-bottom: 1px solid var(--hairline-soft);
+  padding-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.lesson-intro {
+  color: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: var(--spacing-base) 0 0;
+}
+
+/* ==========================================================================
+   TOPICS ACCORDIONS / ITEMS
+   ========================================================================== */
+.lesson-topic-card {
+  background: var(--canvas-soft);
+  padding: var(--spacing-xl);
+  border-radius: var(--rounded-lg);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--hairline-soft);
+}
+
+.topic-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.topic-item {
+  width: 100%;
+  border: 1px solid var(--hairline);
+  background: var(--surface-card);
+  border-radius: var(--rounded-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.topic-item:hover {
+  border-color: var(--hairline-strong);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.topic-number {
+  min-width: 28px;
+  height: 28px;
+  border-radius: var(--rounded-full);
+  background: var(--surface-strong);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.topic-title {
+  flex: 1;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.topic-arrow {
+  color: var(--muted);
+  font-size: 15px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.topic-item:hover .topic-arrow {
+  color: var(--ink);
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   CODE BLOCK / EXAMPLE BOX
+   ========================================================================== */
+.lesson-example-card {
+  background: #18181b; /* zinc-900 */
+  padding: var(--spacing-xl);
+  border-radius: var(--rounded-lg);
+  margin-bottom: var(--spacing-xl);
+  overflow: hidden;
+  border: 1px solid #27272a;
+}
+
+.lesson-example-card h2 {
+  color: #f4f4f5; /* zinc-100 */
+  margin: 0 0 var(--spacing-md);
+}
+
+.lesson-example-card pre {
+  margin: 0;
+  padding: var(--spacing-lg);
+  background: #09090b; /* zinc-950 */
+  border-radius: var(--rounded-md);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  border: 1px solid #27272a;
+}
+
+.lesson-example-card code {
+  display: block;
+  color: #e4e4e7; /* zinc-300 */
+  background: transparent;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   SUMMARY / TOPIC SIDE INFO
+   ========================================================================== */
+.lesson-summary-card {
+  background: var(--surface-strong);
+  border: 1px solid var(--hairline);
+  padding: var(--spacing-xl);
+  border-radius: var(--rounded-lg);
+  box-sizing: border-box;
+}
+
+.lesson-summary-card h2 {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--ink);
+}
+
+.lesson-summary-card p {
+  margin: 0;
+  color: var(--body);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.lesson-content-card > .lesson-summary-card {
+  margin-top: var(--spacing-xl);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 800px) {
+  .modules-list {
+    grid-template-columns: 1fr;
+  }
+
+  .course-details-page {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .course-details-header,
+  .lesson-section,
+  .lesson-content-card {
+    padding: var(--spacing-lg);
+  }
+
+  .course-details-header h1,
+  .lesson-content-card h1,
+  .lesson-section h1 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .module-card {
+    padding: var(--spacing-md);
+  }
+
+  .lesson-content-card {
+    padding: var(--spacing-md);
+  }
+
+  .lesson-header h1 {
+    font-size: 26px;
+  }
+
+  .lesson-intro {
+    font-size: 14px;
+  }
+
+  .topic-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}

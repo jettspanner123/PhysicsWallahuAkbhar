@@ -1,0 +1,207 @@
+/* ==========================================================================
+   CONTACT US PAGE SPECIFIC STYLES
+   Extends core layout system of Home.css with customized grid components.
+   ========================================================================== */
+
+.contact-page-main {
+  background-color: var(--canvas-soft);
+  padding: var(--spacing-section) 0;
+  min-height: calc(100vh - 64px - 320px); /* Fit between navbar and footer */
+  width: 100%;
+}
+
+/* ==========================================================================
+   2-COLUMN LAYOUT GRID (INFO & FORM)
+   ========================================================================== */
+.contact-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  width: 100%;
+}
+
+.contact-info-box {
+  text-align: left;
+}
+
+.contact-info-box h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--spacing-sm);
+  letter-spacing: -0.2px;
+}
+
+.contact-info-box p {
+  font-size: 14px;
+  color: var(--body);
+  line-height: 1.6;
+  margin: 0 0 var(--spacing-lg);
+}
+
+.contact-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+}
+
+.contact-detail-card {
+  display: flex;
+  gap: var(--spacing-base);
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.contact-detail-content h3 {
+  margin: 0 0 2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.contact-detail-content p {
+  margin: 0 0 2px;
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.contact-detail-content small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   CONTACT FORM CARD
+   ========================================================================== */
+.contact-form-card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-xl);
+  padding: var(--spacing-xl);
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+  box-sizing: border-box;
+}
+
+.contact-form-card h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--spacing-xs);
+  letter-spacing: -0.2px;
+}
+
+.contact-form-card p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 var(--spacing-lg);
+}
+
+.contact-form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-align: left;
+}
+
+.form-group label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+
+.form-group .form-input,
+.form-group .form-textarea {
+  width: 100%;
+  border: 1px solid var(--hairline);
+  background-color: var(--surface-card);
+  border-radius: var(--rounded-md);
+  padding: 10px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-group .form-input::placeholder,
+.form-group .form-textarea::placeholder {
+  color: var(--muted);
+}
+
+.form-group .form-input:focus,
+.form-group .form-textarea:focus {
+  outline: none;
+  border-color: var(--hairline-strong);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================================================
+   SUPPORT SECTIONS GRID
+   ========================================================================== */
+.support-section-box {
+  margin-top: var(--spacing-lg);
+  width: 100%;
+  text-align: left;
+}
+
+.support-section-box h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 var(--spacing-lg);
+  letter-spacing: -0.2px;
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 950px) {
+  .contact-main-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  .support-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .support-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-base);
+  }
+  
+  .contact-form-card {
+    padding: var(--spacing-lg);
+  }
+}

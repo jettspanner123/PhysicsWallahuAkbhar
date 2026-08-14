@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+}
+
+model UserModel {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String
+  role      String   // "STUDENT", "TEACHER", "ADMIN"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  coursesOwned     CourseModel[]      @relation("InstructorCourses")
+  enrollments      EnrollmentModel[]
+  submissions      SubmissionModel[]
+  quizAttempts     QuizAttemptModel[]
+  certificates     CertificateModel[]
+
+  @@map("users")
+}
+
+model CourseModel {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  image        String?
+  instructorId String   @db.ObjectId
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  instructor   UserModel         @relation("InstructorCourses", fields: [instructorId], references: [id], onDelete: Cascade)
+  enrollments  EnrollmentModel[]
+  assignments  AssignmentModel[]
+  quizzes      QuizModel[]
+  certificates CertificateModel[]
+
+  @@map("courses")
+}
+
+model EnrollmentModel {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  studentId  String   @db.ObjectId
+  courseId   String   @db.ObjectId
+  enrolledAt DateTime @default(now())
+
+  student    UserModel   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course     CourseModel @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId])
+  @@map("enrollments")
+}
+
+model AssignmentModel {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  dueDate     DateTime
+  courseId    String   @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  course      CourseModel       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  submissions SubmissionModel[]
+
+  @@map("assignments")
+}
+
+model SubmissionModel {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  assignmentId String   @db.ObjectId
+  studentId    String   @db.ObjectId
+  fileUrl      String
+  status       String   // "PENDING", "GRADED", "REJECTED"
+  score        Float?
+  feedback     String?
+  submittedAt  DateTime @default(now())
+
+  assignment   AssignmentModel @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  student      UserModel       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("submissions")
+}
+
+model QuizModel {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  courseId  String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course    CourseModel        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  questions QuestionModel[]
+  attempts  QuizAttemptModel[]
+
+  @@map("quizzes")
+}
+
+model QuestionModel {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  quizId        String   @db.ObjectId
+  text          String
+  options       String   // JSON string representing options array
+  correctOption Int      // Index of correct option
+  points        Float    @default(1.0)
+
+  quiz          QuizModel @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("questions")
+}
+
+model QuizAttemptModel {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  quizId      String   @db.ObjectId
+  studentId   String   @db.ObjectId
+  score       Float
+  answers     String   // JSON string representing selected answers array
+  completedAt DateTime @default(now())
+
+  quiz        QuizModel @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  student     UserModel @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_attempts")
+}
+
+model CertificateModel {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  studentId      String   @db.ObjectId
+  courseId       String   @db.ObjectId
+  certificateUrl String
+  issuedAt       DateTime @default(now())
+
+  student        UserModel   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course         CourseModel @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, courseId])
+  @@map("certificates")
+}

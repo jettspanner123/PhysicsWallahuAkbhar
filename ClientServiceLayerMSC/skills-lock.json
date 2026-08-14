@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "skills": {
+    "animate": {
+      "source": "delphi-ai/animate-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "6cad510ef13753d01be3a463870bfa040e2ee4ddd8f2c1606ce75112a524dfc7"
+    },
+    "engineering-backend-architect": {
+      "source": "PeterHdd/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering-backend-architect/SKILL.md",
+      "computedHash": "c0c6c0a12194b0a1d41dcc3776012436b3e79c073ca794ac39936ae3eb644e71"
+    },
+    "engineering-frontend-developer": {
+      "source": "PeterHdd/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering-frontend-developer/SKILL.md",
+      "computedHash": "e3cdd7d3ea248e87155d18f4499482ac5675055343858ddc19e67f5bcc3d7ed1"
+    },
+    "engineering-system-designer": {
+      "source": "PeterHdd/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering-system-designer/SKILL.md",
+      "computedHash": "d2ed129178a0fd14ca244bccdc892edd09e764e58581d81cd55eac16b75ed51e"
+    },
+    "framer-motion": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "framer-motion/SKILL.md",
+      "computedHash": "4bbfec771a1a13e3462cdd30c442fd09513c50d13a2652a275a8e09ad4532189"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "93f53fd1c0352d3d7ec17b8f73d7351bf76f4821e55d123c9d2abc2c53ba48e4"
+    },
+    "scroll-animations": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/scroll-animations/SKILL.md",
+      "computedHash": "16e1d229291ca23991f26215efd830f1ce942fdca60deb43f9fbe04a1fee43c2"
+    },
+    "web-design-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+    },
+    "webapp-testing": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/webapp-testing/SKILL.md",
+      "computedHash": "3f14af7f5690695209c22fbf8c8d133769a86d64892602c09bb13f135e14e857"
+    }
+  }
+}

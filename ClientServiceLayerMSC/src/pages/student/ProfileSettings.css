@@ -1,0 +1,416 @@
+/* =========================================
+   PROFILE & SETTINGS PAGE
+========================================= */
+
+.profile-settings-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.profile-settings-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 30px 60px;
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   PAGE HEADING
+========================================= */
+
+.profile-settings-heading {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 28px 30px;
+  margin-bottom: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.profile-settings-heading h1 {
+  margin: 8px 0 6px;
+  font-size: 30px;
+  color: #111827;
+}
+
+.profile-settings-heading p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.back-dashboard {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.back-dashboard:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================
+   PROFILE CARD
+========================================= */
+
+.profile-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   PROFILE HEADER
+========================================= */
+
+.profile-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.large-profile-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+
+  background: #eef2ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 32px;
+}
+
+.profile-card-heading h2 {
+  margin: 0 0 5px;
+  color: #111827;
+  font-size: 22px;
+}
+
+.profile-card-heading p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   SETTINGS SECTION
+========================================= */
+
+.settings-section {
+  padding: 25px 0;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.settings-section h3 {
+  margin: 0 0 5px;
+  color: #111827;
+  font-size: 19px;
+}
+
+.settings-description {
+  margin: 0 0 20px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.settings-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.settings-field label {
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.settings-field input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 11px 13px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #111827;
+
+  font-size: 13px;
+
+  outline: none;
+}
+
+.settings-field input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px #dbeafe;
+}
+
+
+/* =========================================
+   ACCOUNT INFORMATION
+========================================= */
+
+.account-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.account-info-item {
+  background: #f8fafc;
+  border: 1px solid #eef0f4;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.account-info-item span {
+  display: block;
+  color: #6b7280;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.account-info-item strong {
+  display: block;
+  color: #111827;
+  font-size: 16px;
+}
+
+
+/* =========================================
+   PREFERENCES
+========================================= */
+
+.preference-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.preference-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 15px;
+
+  background: #f8fafc;
+  border: 1px solid #eef0f4;
+  border-radius: 10px;
+}
+
+.preference-item strong {
+  display: block;
+  color: #111827;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.preference-item p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+
+/* =========================================
+   TOGGLE
+========================================= */
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+
+  background: #d1d5db;
+  border-radius: 30px;
+
+  transition: 0.2s;
+}
+
+.toggle-slider::before {
+  content: "";
+
+  position: absolute;
+
+  width: 18px;
+  height: 18px;
+
+  left: 3px;
+  top: 3px;
+
+  background: #ffffff;
+  border-radius: 50%;
+
+  transition: 0.2s;
+}
+
+.toggle input:checked + .toggle-slider {
+  background: #2563eb;
+}
+
+.toggle input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.settings-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding-top: 25px;
+}
+
+.save-settings-btn,
+.cancel-settings-btn {
+  border-radius: 9px;
+
+  padding: 11px 20px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.save-settings-btn {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.save-settings-btn:hover {
+  background: #1d4ed8;
+}
+
+.cancel-settings-btn {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+}
+
+.cancel-settings-btn:hover {
+  background: #f9fafb;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+  .account-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .profile-settings-main {
+    padding: 25px 16px 40px;
+  }
+
+  .profile-settings-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+  }
+
+  .profile-card {
+    padding: 22px;
+  }
+
+  .settings-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 450px) {
+
+  .profile-settings-heading h1 {
+    font-size: 26px;
+  }
+
+  .account-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preference-item {
+    align-items: flex-start;
+  }
+
+  .settings-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .save-settings-btn,
+  .cancel-settings-btn {
+    text-align: center;
+    width: 100%;
+  }
+
+}

@@ -1,0 +1,223 @@
+/* ==========================================================================
+   AUTH PAGES STYLESHEET
+   Implements ElevenLabs design tokens for user login/signup views.
+   ========================================================================== */
+
+.home-page-wrapper .auth-page-main {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--canvas-soft);
+  padding: var(--spacing-lg);
+  box-sizing: border-box;
+}
+
+.home-page-wrapper .auth-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-xl);
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.015);
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.home-page-wrapper .auth-logo {
+  font-family: 'EB Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink) !important;
+  margin-bottom: var(--spacing-xs);
+  letter-spacing: -0.2px;
+  display: block;
+}
+
+.home-page-wrapper .auth-card h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.home-page-wrapper .auth-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: -10px 0 0;
+}
+
+.home-page-wrapper .auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+}
+
+.home-page-wrapper .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  text-align: left;
+}
+
+.home-page-wrapper .form-group label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+}
+
+.home-page-wrapper .form-group .form-input {
+  width: 100%;
+  border: 1px solid var(--hairline);
+  background-color: var(--surface-card);
+  border-radius: var(--rounded-md);
+  padding: 10px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.home-page-wrapper .form-group .form-input::placeholder {
+  color: var(--muted);
+}
+
+.home-page-wrapper .form-group .form-input:focus {
+  outline: none;
+  border-color: var(--hairline-strong);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.02);
+}
+
+.home-page-wrapper .auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin: var(--spacing-xs) 0 0;
+}
+
+.home-page-wrapper .remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--body);
+}
+
+.home-page-wrapper .signup-terms {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+.home-page-wrapper .remember-me input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--body);
+  cursor: pointer;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.home-page-wrapper .forgot-password {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.home-page-wrapper .forgot-password:hover {
+  color: var(--ink);
+}
+
+.home-page-wrapper .auth-submit {
+  margin-top: var(--spacing-sm);
+}
+
+.home-page-wrapper .auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin: var(--spacing-base) 0;
+}
+
+.home-page-wrapper .auth-divider::before,
+.home-page-wrapper .auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.home-page-wrapper .auth-divider::before {
+  margin-right: var(--spacing-base);
+}
+
+.home-page-wrapper .auth-divider::after {
+  margin-left: var(--spacing-base);
+}
+
+.home-page-wrapper .auth-switch {
+  font-size: 14px;
+  color: var(--body);
+  margin: 0;
+}
+
+.home-page-wrapper .auth-switch a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.home-page-wrapper .auth-switch a:hover {
+  opacity: 0.8;
+}
+
+.home-page-wrapper .back-home {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+  margin-top: var(--spacing-base);
+  transition: color 0.15s ease;
+}
+
+.home-page-wrapper .back-home:hover {
+  color: var(--ink);
+}
+
+/* Wide card layout for Signup */
+.home-page-wrapper .auth-card-wide {
+  max-width: 580px;
+}
+
+/* Side-by-side form field rows */
+.home-page-wrapper .form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-base);
+}
+
+@media (max-width: 600px) {
+  .home-page-wrapper .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+  
+  .home-page-wrapper .auth-card-wide {
+    max-width: 100%;
+  }
+}
+
