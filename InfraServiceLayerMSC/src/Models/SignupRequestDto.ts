@@ -4,5 +4,5 @@ export class SignupRequestDto {
     public readonly email!: string;
     public readonly password!: string;
     public readonly confirmPassword!: string;
-    public readonly role!: string;
+    public readonly role: string = "STUDENT";
 }

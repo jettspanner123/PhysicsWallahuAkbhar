@@ -10,7 +10,7 @@ export class SignupRequestDto {
         email: string,
         password: string,
         confirmPassword: string,
-        role: string
+        role: string = "STUDENT"
     ) {
         this.name = name;
         this.email = email;

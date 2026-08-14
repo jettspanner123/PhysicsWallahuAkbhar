@@ -6,7 +6,7 @@ class SignupRequestDto {
     email;
     password;
     confirmPassword;
-    role;
+    role = "STUDENT";
 }
 exports.SignupRequestDto = SignupRequestDto;
 //# sourceMappingURL=SignupRequestDto.js.map

@@ -47,7 +47,7 @@ export class AuthServices {
         email: string,
         password: string,
         confirmPassword: string,
-        role: string
+        role: string = "STUDENT"
     ): Promise<ResponseModel<AuthResponseModel>> {
         const signupRequest = new SignupRequestDto(
             name,
