@@ -59,6 +59,11 @@ function Home() {
     SpringOptions,
   );
 
+  const darkScreenBorderRadiusTransform = useSpring(
+    useTransform(descriptionSectionScrollYProgress, [0, 1], [25, 0]),
+    SpringOptions
+  );
+
   // MARK: CTA Button Section Transform
   const ctaButtonTransform = useSpring(
     useTransform(ctaButtonSectionScrollYProgress, [0, 1], [150, 0]),
@@ -577,6 +582,7 @@ function Home() {
               <motion.div
                 style={{
                   width: useMotionTemplate`${darkScreenWidthTransform}%`,
+                  borderRadius: useMotionTemplate`${darkScreenBorderRadiusTransform}rem`,
                 }}
                 className="h-screen bg-black relative"
               >

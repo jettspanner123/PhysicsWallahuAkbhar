@@ -7,7 +7,7 @@ const STEPS = [
     number: "01",
     name: "Lesson",
     icon: "fa-solid fa-book-open",
-    accent: "#4f8fff",         // blue
+    accent: "#7fa8c9",         // dusty blue
     heading: "Absorb at Your Own Pace",
     description:
       "Every lesson is crafted like an editorial magazine spread — structured, distraction-free, and built for deep comprehension rather than rapid consumption. Read, re-read, and let concepts settle naturally.",
@@ -16,7 +16,7 @@ const STEPS = [
     number: "02",
     name: "Quiz",
     icon: "fa-solid fa-pen-fancy",
-    accent: "#ff5fcb",         // pink
+    accent: "#c98a9e",         // dusty rose
     heading: "Test Your Understanding",
     description:
       "Low-pressure checkpoints placed at the end of each module. These aren't gatekeepers — they are mirrors. They show you exactly where your understanding is solid and where it needs another pass.",
@@ -25,7 +25,7 @@ const STEPS = [
     number: "03",
     name: "Analysis",
     icon: "fa-solid fa-chart-line",
-    accent: "#36f5a0",         // green
+    accent: "#7eb89a",         // sage green
     heading: "Understand Your Learning Curve",
     description:
       "After each quiz, your performance is mapped into clear, photographic analytics. No gamified scores — just honest insight into your retention patterns so you can focus your effort where it counts.",
@@ -34,7 +34,7 @@ const STEPS = [
     number: "04",
     name: "Assignment",
     icon: "fa-solid fa-clipboard-list",
-    accent: "#f5a623",         // gold/amber
+    accent: "#c4935a",         // clay amber
     heading: "Apply to the Real World",
     description:
       "Structured assignments bring theory into practice. Each task is scoped precisely to the lesson it follows, giving you a concrete artifact of your learning journey rather than abstract theory alone.",
@@ -43,7 +43,7 @@ const STEPS = [
     number: "05",
     name: "Mastery",
     icon: "fa-solid fa-award",
-    accent: "#c8a84b",         // gold
+    accent: "#b89a5e",         // antique gold
     heading: "Earn Your Certificate",
     description:
       "Complete all five steps and a verified certificate of mastery is yours. Not a participation ribbon — a genuine record of the depth you have committed to. A milestone worth adding to your portfolio.",
@@ -61,7 +61,9 @@ function RoadmapSection({ scrollYProgress }) {
   const stepProgress = useSpring(rawStep, { stiffness: 80, damping: 20, mass: 0.5 });
 
   return (
-    <div className="roadmap-split">
+    <div className="roadmap-wrapper">
+      <div className="home-container roadmap-container">
+        <div className="roadmap-split">
       {/* ── LEFT: vertical step list ────────────────────────── */}
       <div className="roadmap-left">
         <p className="roadmap-eyebrow">How it works</p>
@@ -89,25 +91,52 @@ function RoadmapSection({ scrollYProgress }) {
           />
         ))}
       </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 /* ─── Individual step node (left column) ─────────────────────────────────── */
 function RoadmapStepNode({ step, idx, stepProgress, isLast }) {
-  // Active when stepProgress is within ±0.55 of this step's index
-  const opacity = useTransform(stepProgress, (v) => {
-    const dist = Math.abs(v - idx);
-    return dist < 0.55 ? 1 : 0.25;
-  });
+  const isFirst = idx === 0;
+  const isLastStep = idx === STEPS.length - 1;
 
-  const scale = useTransform(stepProgress, (v) => {
-    const dist = Math.abs(v - idx);
-    return dist < 0.55 ? 1 : 0.92;
-  });
+  const activeWeight = useTransform(
+    stepProgress,
+    isFirst
+      ? [-1, 0, 0.35, 0.7]
+      : isLastStep
+      ? [idx - 0.7, idx - 0.35, idx, idx + 1]
+      : [idx - 0.7, idx - 0.35, idx + 0.35, idx + 0.7],
+    isFirst
+      ? [1, 1, 1, 0]
+      : isLastStep
+      ? [0, 1, 1, 1]
+      : [0, 1, 1, 0],
+    { clamp: true }
+  );
 
-  // Fill fraction for the dashed connector below this node (0→1)
-  const fillFraction = useTransform(stepProgress, [idx, idx + 1], [0, 1], {
+  const opacity = useTransform(activeWeight, [0, 1], [0.25, 1]);
+  const scale = useTransform(activeWeight, [0, 1], [0.92, 1]);
+
+  const boxShadow = useTransform(
+    activeWeight,
+    [0, 1],
+    [
+      "0 0 0 0px transparent, 0 0 0px 0px transparent",
+      `0 0 0 2px ${step.accent}55, 0 0 22px 4px ${step.accent}44`,
+    ]
+  );
+
+  const borderColor = useTransform(
+    activeWeight,
+    [0, 1],
+    ["rgba(255, 255, 255, 0.15)", step.accent]
+  );
+
+  // Fill the connector so it completes BEFORE the next step activates
+  const fillFraction = useTransform(stepProgress, [idx + 0.1, idx + 0.4], [0, 1], {
     clamp: true,
   });
 
@@ -121,17 +150,9 @@ function RoadmapStepNode({ step, idx, stepProgress, isLast }) {
           style={{
             opacity,
             scale,
+            boxShadow,
+            borderColor,
             "--accent": step.accent,
-            boxShadow: useTransform(stepProgress, (v) => {
-              const dist = Math.abs(v - idx);
-              return dist < 0.55
-                ? `0 0 0 2px ${step.accent}55, 0 0 22px 4px ${step.accent}44`
-                : "none";
-            }),
-            borderColor: useTransform(stepProgress, (v) => {
-              const dist = Math.abs(v - idx);
-              return dist < 0.55 ? step.accent : "rgba(255,255,255,0.15)";
-            }),
           }}
         >
           <i className={step.icon} style={{ color: step.accent }} />
@@ -167,21 +188,66 @@ function RoadmapStepNode({ step, idx, stepProgress, isLast }) {
 
 /* ─── Right panel: crossfading detail for each step ─────────────────────── */
 function RoadmapDetail({ step, idx, stepProgress }) {
-  const opacity = useTransform(stepProgress, (v) => {
-    const dist = Math.abs(v - idx);
-    return dist < 0.55 ? 1 : 0;
-  });
+  const isFirst = idx === 0;
+  const isLast = idx === STEPS.length - 1;
 
-  const translateY = useTransform(stepProgress, (v) => {
-    const dist = v - idx; // negative = hasn't arrived yet, positive = passed
-    if (Math.abs(dist) < 0.55) return 0;
-    return dist < 0 ? 24 : -24;
-  });
+  const opacity = useTransform(
+    stepProgress,
+    isFirst
+      ? [-1, 0, 0.35, 0.7]
+      : isLast
+      ? [idx - 0.7, idx - 0.35, idx, idx + 1]
+      : [idx - 0.7, idx - 0.35, idx + 0.35, idx + 0.7],
+    isFirst
+      ? [1, 1, 1, 0]
+      : isLast
+      ? [0, 1, 1, 1]
+      : [0, 1, 1, 0],
+    { clamp: true }
+  );
+
+  const translateY = useTransform(
+    stepProgress,
+    isFirst
+      ? [-1, 0, 0.35, 0.7]
+      : isLast
+      ? [idx - 0.7, idx - 0.35, idx, idx + 1]
+      : [idx - 0.7, idx - 0.35, idx + 0.35, idx + 0.7],
+    isFirst
+      ? [0, 0, 0, -20]
+      : isLast
+      ? [20, 0, 0, 0]
+      : [20, 0, 0, -20],
+    { clamp: true }
+  );
+
+  const filter = useTransform(
+    stepProgress,
+    isFirst
+      ? [-1, 0, 0.35, 0.7]
+      : isLast
+      ? [idx - 0.7, idx - 0.35, idx, idx + 1]
+      : [idx - 0.7, idx - 0.35, idx + 0.35, idx + 0.7],
+    isFirst
+      ? ["blur(0px)", "blur(0px)", "blur(0px)", "blur(8px)"]
+      : isLast
+      ? ["blur(8px)", "blur(0px)", "blur(0px)", "blur(0px)"]
+      : ["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"],
+    { clamp: true }
+  );
+
+  const pointerEvents = useTransform(opacity, (v) => (v > 0.2 ? "auto" : "none"));
 
   return (
     <motion.div
       className="roadmap-detail"
-      style={{ opacity, translateY, "--accent": step.accent }}
+      style={{
+        opacity,
+        translateY,
+        filter,
+        pointerEvents,
+        "--accent": step.accent,
+      }}
     >
       <div className="roadmap-detail-icon">
         <i className={step.icon} />
