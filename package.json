@@ -1,5 +1,16 @@
 {
-  "dependencies": {
-    "pnpm": "^11.21.0"
+  "name": "physics-wallah-akbhar-workspace",
+  "private": true,
+  "packageManager": "npm@11.17.0",
+  "workspaces": [
+    "ClientServiceLayerMSC",
+    "InfraServiceLayerMSC"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0"
   }
 }

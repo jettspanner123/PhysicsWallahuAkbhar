@@ -23,6 +23,7 @@ import CreateCourse from "./pages/student/CreateCourse";
 import CreateQuiz from "./pages/student/CreateQuiz";
 import CreateAssignment from "./pages/student/CreateAssignment";
 import ContactMessages from "./pages/student/ContactMessages";
+import ShowCertificate from "./pages/student/ShowCertificate";
 import PageTransition from "./components/PageTransition";
 
 const queryClient = new QueryClient({
@@ -66,6 +67,7 @@ function AnimatedRoutes() {
           <Route path="assignments" element={<Assignments />} />
           <Route path="quizzes" element={<Quizzes />} />
           <Route path="certificates" element={<Certificates />} />
+          <Route path="certificates/show-certificate" element={<ShowCertificate />} />
           <Route path="profile" element={<ProfileSettings />} />
           <Route path="create-course" element={<CreateCourse />} />
           <Route path="create-quizzes" element={<CreateQuiz />} />

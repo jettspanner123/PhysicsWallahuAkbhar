@@ -1,9 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { ReactLenis } from "lenis/react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionTemplate,
+} from "framer-motion";
 import GradientWaves from "../../Animations/GradientWaves";
 import "./Home.css";
 import SpringOptions from "../../Animations/SpringOptions";
+import LightRays from "../../Animations/LightRays";
 
 function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -12,6 +19,9 @@ function Home() {
 
   const heroSectionRef = useRef();
   const secondSectoinRef = useRef();
+  const ctaButtonSectionRef = useRef();
+  const descriptionSectionRef = useRef();
+
   const { scrollYProgress } = useScroll({
     target: heroSectionRef,
     offset: ["start 10%", "end start"],
@@ -20,6 +30,33 @@ function Home() {
     target: secondSectoinRef,
     offset: ["start 80%", "start 20%"],
   });
+  const { scrollYProgress: ctaButtonSectionScrollYProgress } = useScroll({
+    target: ctaButtonSectionRef,
+    offset: ["start end", "start 50%"],
+  });
+
+  const { scrollYProgress: descriptionSectionScrollYProgress } = useScroll({
+    target: descriptionSectionRef,
+    offset: ["start end", "start 40%"],
+  });
+  const { scrollYProgress: rootScrollProgress } = useScroll();
+
+  const navbarBackgroundColorTransform = useSpring(
+    useTransform(rootScrollProgress, [0, 0.2], [0, 0.5]),
+    SpringOptions,
+  );
+
+  // MARK: Description Section Transforms
+  const darkScreenWidthTransform = useSpring(
+    useTransform(descriptionSectionScrollYProgress, [0, 1], [60, 100]),
+    SpringOptions,
+  );
+
+  // MARK: CTA Button Section Transform
+  const ctaButtonTransform = useSpring(
+    useTransform(ctaButtonSectionScrollYProgress, [0, 1], [150, 0]),
+    SpringOptions,
+  );
 
   // MARK: Second Section Transform
   const secondSectionFirstCardTransform = useSpring(
@@ -135,7 +172,12 @@ function Home() {
   return (
     <ReactLenis root>
       <div className="home-page-wrapper">
-        <header className="home-navbar">
+        <motion.header
+          style={{
+            backgroundColor: useMotionTemplate`rgba(255,255,255, ${navbarBackgroundColorTransform})`,
+          }}
+          className="home-navbar"
+        >
           <div className="home-container nav-inner-container">
             <div className="home-logo">E-Learn</div>
 
@@ -164,7 +206,7 @@ function Home() {
               </a>
             </div>
           </div>
-        </header>
+        </motion.header>
 
         <main>
           {/* Hero Section */}
@@ -493,7 +535,7 @@ function Home() {
           </section>
 
           {/* Pre-footer CTA */}
-          <section className="home-cta-band">
+          <section ref={ctaButtonSectionRef} className="home-cta-band">
             <div className="orb-container">
               <div
                 className="orb orb-peach"
@@ -504,14 +546,49 @@ function Home() {
               <h2 className="cta-title">Begin your learning practice today.</h2>
               <div className="cta-button-container">
                 <a href="/signup">
-                  <button
+                  <motion.button
                     className="btn-primary"
-                    style={{ padding: "12px 28px", height: "46px" }}
+                    style={{
+                      padding: "12px 28px",
+                      height: "46px",
+                      translateY: ctaButtonTransform,
+                    }}
                   >
                     Start Learning Free
-                  </button>
+                  </motion.button>
                 </a>
               </div>
+            </div>
+          </section>
+
+          {/* Description Section */}
+          <section
+            ref={descriptionSectionRef}
+            className="relative h-[300vh] w-full bg-white"
+          >
+            <div className="sticky top-0 flex justify-center">
+              <motion.div
+                style={{
+                  width: useMotionTemplate`${darkScreenWidthTransform}%`,
+                }}
+                className="h-screen bg-black relative"
+              >
+                <LightRays
+                  raysOrigin="top-center"
+                  raysColor="#ffffff"
+                  raysSpeed={1}
+                  lightSpread={0.5}
+                  rayLength={3}
+                  followMouse={true}
+                  mouseInfluence={0.1}
+                  noiseAmount={0}
+                  distortion={0}
+                  className="custom-rays"
+                  pulsating={false}
+                  fadeDistance={1}
+                  saturation={1}
+                />
+              </motion.div>
             </div>
           </section>
         </main>

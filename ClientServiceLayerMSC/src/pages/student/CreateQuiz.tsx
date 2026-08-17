@@ -33,7 +33,7 @@ function CreateQuiz(): React.JSX.Element {
 
   const { data: coursesCatalogResponse, isLoading: isLoadingCourses } = useQuery({
     queryKey: ["coursesCatalog"],
-    queryFn: () => courseServices.getCatalog(),
+    queryFn: () => courseServices.getAllCourses(),
   });
 
   const catalog = coursesCatalogResponse?.data || [];

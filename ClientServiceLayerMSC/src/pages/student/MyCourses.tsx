@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 import { CourseServices } from "../../Services/CourseServices";
 import { AuthServices } from "../../Services/AuthServices";
 import { CourseModel } from "../../Models/CourseModel";
@@ -21,6 +22,7 @@ function MyCourses(): React.JSX.Element {
   const queryClient = useQueryClient();
   const courseServices = CourseServices.getInstance();
   const authServices = AuthServices.getInstance();
+  const navigate = useNavigate();
   const { role } = authServices.getUserInfo();
 
   const [activeTab, setActiveTab] = useState<"enrolled" | "browse">("enrolled");
@@ -192,6 +194,22 @@ function MyCourses(): React.JSX.Element {
                           <a href={`/course-details?id=${course.id}`} className="continue-btn">
                             Continue Course →
                           </a>
+                          {progress === 100 && (
+                            <button
+                              className="view-cert-btn"
+                              onClick={() => {
+                                const params = new URLSearchParams({
+                                  courseName: course.title,
+                                  courseCategory: course.category || "",
+                                  enrolledAt: enrollment.enrolledAt || "",
+                                  completedAt: new Date().toISOString(),
+                                });
+                                navigate(`/dashboard/certificates/show-certificate?${params.toString()}`);
+                              }}
+                            >
+                              <i className="fa-solid fa-certificate"></i> View Certificate
+                            </button>
+                          )}
                           {(role === "TEACHER" || role === "ADMIN") && (
                             <button
                               className="delete-course-btn"
