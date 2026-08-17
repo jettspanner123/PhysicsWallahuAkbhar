@@ -1,6 +1,6 @@
 # 🚀 Physics Wallah - E-Learning Platform
 
-<div align="center">
+<div align="start">
 
 ![Turborepo](https://img.shields.io/badge/Turborepo-EF4444?style=for-the-badge&logo=turborepo&logoColor=white)
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
