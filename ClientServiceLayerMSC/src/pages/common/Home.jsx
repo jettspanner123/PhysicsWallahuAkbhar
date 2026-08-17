@@ -10,7 +10,6 @@ import {
 import GradientWaves from "../../Animations/GradientWaves";
 import "./Home.css";
 import SpringOptions from "../../Animations/SpringOptions";
-import LightRays from "../../Animations/LightRays";
 import RoadmapSection from "../../Animations/RoadmapSection";
 
 function Home() {
