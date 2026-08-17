@@ -144,3 +144,12 @@ model CertificateModel {
   @@unique([studentId, courseId])
   @@map("certificates")
 }
+
+model HealthCheckLogModel {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  timestamp DateTime @default(now())
+  status    String
+  ip        String?
+
+  @@map("health_check_logs")
+}

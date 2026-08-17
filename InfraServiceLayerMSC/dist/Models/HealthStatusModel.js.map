@@ -1,0 +1,1 @@
+{"version":3,"file":"HealthStatusModel.js","sourceRoot":"","sources":["../../src/Models/HealthStatusModel.ts"],"names":[],"mappings":";;;AAAA,MAAa,iBAAiB;IAEV,MAAM,CAAS;IACf,SAAS,CAAS;IAClB,aAAa,CAAS;IAEtC,YAAmB,MAAc,EAAE,SAAiB,EAAE,aAAqB;QACvE,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;QACrB,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC;QAC3B,IAAI,CAAC,aAAa,GAAG,aAAa,CAAC;IACvC,CAAC;CACJ;AAXD,8CAWC"}

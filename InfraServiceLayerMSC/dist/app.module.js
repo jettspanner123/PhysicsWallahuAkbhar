@@ -11,10 +11,13 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const UserController_1 = require("./Controllers/UserController");
 const AuthController_1 = require("./Controllers/AuthController");
+const HealthController_1 = require("./Controllers/HealthController");
 const DatabaseProvider_1 = require("./Providers/DatabaseProvider");
 const UserRepository_1 = require("./Repositories/UserRepository");
+const HealthCheckLogRepository_1 = require("./Repositories/HealthCheckLogRepository");
 const UserServices_1 = require("./Services/UserServices");
 const AuthServices_1 = require("./Services/AuthServices");
+const HealthCheckLogServices_1 = require("./Services/HealthCheckLogServices");
 const PasswordServices_1 = require("./Services/PasswordServices");
 const AuthenticationConstants_1 = require("./Constants/AuthenticationConstants");
 let AppModule = class AppModule {
@@ -33,12 +36,15 @@ exports.AppModule = AppModule = __decorate([
         controllers: [
             UserController_1.UserController,
             AuthController_1.AuthController,
+            HealthController_1.HealthController,
         ],
         providers: [
             DatabaseProvider_1.DatabaseProvider,
             UserRepository_1.UserRepository,
+            HealthCheckLogRepository_1.HealthCheckLogRepository,
             UserServices_1.UserServices,
             AuthServices_1.AuthServices,
+            HealthCheckLogServices_1.HealthCheckLogServices,
             PasswordServices_1.PasswordServices,
         ],
     })
