@@ -21,6 +21,7 @@ import Certificates from "./pages/student/Certificates";
 import ProfileSettings from "./pages/student/ProfileSettings";
 import CreateCourse from "./pages/student/CreateCourse";
 import CreateQuiz from "./pages/student/CreateQuiz";
+import CreateAssignment from "./pages/student/CreateAssignment";
 import ContactMessages from "./pages/student/ContactMessages";
 import PageTransition from "./components/PageTransition";
 
@@ -68,6 +69,7 @@ function AnimatedRoutes() {
           <Route path="profile" element={<ProfileSettings />} />
           <Route path="create-course" element={<CreateCourse />} />
           <Route path="create-quizzes" element={<CreateQuiz />} />
+          <Route path="create-assignments" element={<CreateAssignment />} />
           <Route path="contact" element={<ContactMessages />} />
         </Route>
       </Routes>

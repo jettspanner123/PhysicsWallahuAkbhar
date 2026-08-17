@@ -1,120 +1,12 @@
-import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { useQuery, useQueries, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { CourseServices } from "../../Services/CourseServices";
+import { AssignmentServices } from "../../Services/AssignmentServices";
+import { AuthServices } from "../../Services/AuthServices";
 import { EnrollmentModel } from "../../Models/EnrollmentModel";
+import ConfirmDialog from "../../components/ConfirmDialog";
 import "./Assignments.css";
-
-interface AssignmentItem {
-  title: string;
-  module: string;
-  due: string;
-  marks: string;
-  status: string;
-}
-
-const mockAssignmentData: Record<string, AssignmentItem[]> = {
-  "web-development": [
-    {
-      title: "HTML Fundamentals Assignment",
-      module: "Module 2 — HTML Fundamentals",
-      due: "12 Aug 2026",
-      marks: "20 Marks",
-      status: "Submitted",
-    },
-    {
-      title: "CSS Responsive Design Task",
-      module: "Module 3 — CSS Fundamentals",
-      due: "15 Aug 2026",
-      marks: "25 Marks",
-      status: "Pending",
-    },
-  ],
-
-  "java-programming": [
-    {
-      title: "Java Basics Programming Task",
-      module: "Module 2 — Java Fundamentals",
-      due: "13 Aug 2026",
-      marks: "20 Marks",
-      status: "Pending",
-    },
-    {
-      title: "OOP Concepts Assignment",
-      module: "Module 3 — Object-Oriented Programming",
-      due: "18 Aug 2026",
-      marks: "25 Marks",
-      status: "Pending",
-    },
-  ],
-
-  "database-management": [
-    {
-      title: "DBMS Fundamentals Assignment",
-      module: "Module 1 — Introduction to DBMS",
-      due: "14 Aug 2026",
-      marks: "20 Marks",
-      status: "Pending",
-    },
-    {
-      title: "SQL Query Practice",
-      module: "Module 3 — SQL Fundamentals",
-      due: "19 Aug 2026",
-      marks: "25 Marks",
-      status: "Pending",
-    },
-  ],
-
-  "python-programming": [
-    {
-      title: "Python Fundamentals Task",
-      module: "Module 1 — Introduction to Python",
-      due: "16 Aug 2026",
-      marks: "20 Marks",
-      status: "Pending",
-    },
-    {
-      title: "Python Data Structures Assignment",
-      module: "Module 4 — Functions and Data Structures",
-      due: "21 Aug 2026",
-      marks: "25 Marks",
-      status: "Pending",
-    },
-  ],
-
-  "data-analytics": [
-    {
-      title: "Data Preparation Assignment",
-      module: "Module 2 — Data Collection & Preparation",
-      due: "17 Aug 2026",
-      marks: "20 Marks",
-      status: "Pending",
-    },
-    {
-      title: "Data Visualization Task",
-      module: "Module 4 — Data Visualization",
-      due: "22 Aug 2026",
-      marks: "25 Marks",
-      status: "Pending",
-    },
-  ],
-
-  "cyber-security": [
-    {
-      title: "Cyber Security Fundamentals Task",
-      module: "Module 1 — Introduction to Cyber Security",
-      due: "18 Aug 2026",
-      marks: "20 Marks",
-      status: "Pending",
-    },
-    {
-      title: "Cyber Threats & Attacks Assignment",
-      module: "Module 2 — Cyber Threats & Attacks",
-      due: "23 Aug 2026",
-      marks: "25 Marks",
-      status: "Pending",
-    },
-  ],
-};
 
 const courseIcons: Record<string, string> = {
   "web-development": "fa-solid fa-laptop-code",
@@ -126,14 +18,38 @@ const courseIcons: Record<string, string> = {
 };
 
 function Assignments(): React.JSX.Element {
+  const queryClient = useQueryClient();
   const courseServices = CourseServices.getInstance();
+  const assignmentServices = AssignmentServices.getInstance();
+  const authServices = AuthServices.getInstance();
 
-  const { data: enrolledResponse, isLoading } = useQuery({
+  const { role } = authServices.getUserInfo();
+  const isInstructor = role === "TEACHER" || role === "ADMIN";
+
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [assignmentToDelete, setAssignmentToDelete] = useState<any>(null);
+
+  // Fetch enrolled courses
+  const { data: enrolledResponse, isLoading: isLoadingEnrolled } = useQuery({
     queryKey: ["enrolledCourses"],
     queryFn: () => courseServices.getEnrolledCourses(),
   });
 
   const enrolled = enrolledResponse?.data || [];
+
+  // Query assignments for all enrolled courses
+  const courseQueries = useQueries({
+    queries: enrolled.map((enrollment: EnrollmentModel) => {
+      const courseId = enrollment.course?.id;
+      return {
+        queryKey: ["assignments", courseId],
+        queryFn: () => assignmentServices.getAssignmentsByCourse(courseId!),
+        enabled: !!courseId,
+      };
+    }),
+  });
+
+  const isLoadingAssignments = courseQueries.some((q) => q.isLoading);
 
   const getSlug = (title: string): string => {
     return title.toLowerCase().replace(/\s+/g, "-");
@@ -143,18 +59,43 @@ function Assignments(): React.JSX.Element {
     return courseIcons[getSlug(title)] || "fa-solid fa-pen-to-square";
   };
 
-  const allAssignments = enrolled.flatMap((enrollment: EnrollmentModel) => {
-    const course = enrollment.course;
-    if (!course) return [];
-    const slug = getSlug(course.title);
-    const list = mockAssignmentData[slug] || [];
-    return list.map((assignment) => ({
-      ...assignment,
-      courseTitle: course.title,
-      category: course.category,
-      courseId: course.id,
-      slug: slug,
-    }));
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => assignmentServices.deleteAssignment(id),
+    onSuccess: () => {
+      toast.success("Assignment deleted successfully.");
+      queryClient.invalidateQueries({ queryKey: ["assignments"] });
+    },
+    onError: (err: any) => {
+      toast.error("Failed to delete assignment", { description: err.message });
+    },
+  });
+
+  // Combine query results
+  const allAssignments: any[] = [];
+  courseQueries.forEach((query, index) => {
+    const course = enrolled[index]?.course;
+    if (course && query.data?.data) {
+      query.data.data.forEach((assignment: any) => {
+        allAssignments.push({
+          id: assignment.id,
+          title: assignment.title,
+          description: assignment.description,
+          due: new Date(assignment.dueDate).toLocaleDateString("en-US", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          marks: "100 Marks",
+          status: "Pending", // For now submissions are simulated/mocked
+          courseTitle: course.title,
+          category: course.category,
+          courseId: course.id,
+          slug: getSlug(course.title),
+        });
+      });
+    }
   });
 
   const submittedCount = allAssignments.filter(
@@ -232,7 +173,7 @@ function Assignments(): React.JSX.Element {
           </span>
         </div>
 
-        {isLoading ? (
+        {isLoadingEnrolled || isLoadingAssignments ? (
           <div className="assignments-loading">
             <div className="spinner"></div>
             <p>Loading assignments...</p>
@@ -245,10 +186,10 @@ function Assignments(): React.JSX.Element {
           </div>
         ) : (
           <div className="assignment-list">
-            {allAssignments.map((assignment, index) => (
+            {allAssignments.map((assignment) => (
               <article
                 className="assignment-card"
-                key={`${assignment.courseId}-${index}`}
+                key={assignment.id}
               >
                 {/* Assignment Icon */}
                 <div className="assignment-icon">
@@ -264,8 +205,8 @@ function Assignments(): React.JSX.Element {
                   <p className="assignment-course">
                     {assignment.courseTitle}
                   </p>
-                  <p className="assignment-module">
-                    {assignment.module}
+                  <p className="assignment-description">
+                    {assignment.description}
                   </p>
 
                   <div className="assignment-meta">
@@ -279,7 +220,7 @@ function Assignments(): React.JSX.Element {
                 </div>
 
                 {/* Status + Button */}
-                <div className="assignment-action">
+                <div className="assignment-action" style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end' }}>
                   <span
                     className={
                       assignment.status === "Submitted"
@@ -292,20 +233,55 @@ function Assignments(): React.JSX.Element {
                       : "● Pending"}
                   </span>
 
-                  <a
-                    href={`/course-details?id=${assignment.courseId}`}
-                    className="assignment-btn"
-                  >
-                    {assignment.status === "Submitted"
-                      ? "View Course"
-                      : "Open Assignment"}
-                  </a>
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    {isInstructor && (
+                      <button
+                        type="button"
+                        className="delete-course-btn"
+                        style={{ border: '1px solid var(--hairline-strong)', padding: '8px 12px', borderRadius: '8px', color: '#ef4444', background: 'transparent', cursor: 'pointer' }}
+                        onClick={() => {
+                          setAssignmentToDelete(assignment);
+                          setIsConfirmOpen(true);
+                        }}
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    )}
+                    <a
+                      href={`/course-details?id=${assignment.courseId}`}
+                      className="assignment-btn"
+                    >
+                      {assignment.status === "Submitted"
+                        ? "View Course"
+                        : "Open Assignment"}
+                    </a>
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         )}
       </section>
+
+      <ConfirmDialog
+        isOpen={isConfirmOpen}
+        title="Delete Assignment 🚨"
+        message={`Are you sure you want to delete "${assignmentToDelete?.title}"? This will delete the assignment permanently for everyone.`}
+        confirmText="Delete permanently"
+        cancelText="Keep Assignment"
+        variant="danger"
+        onConfirm={() => {
+          if (assignmentToDelete) {
+            deleteMutation.mutate(assignmentToDelete.id);
+          }
+          setIsConfirmOpen(false);
+          setAssignmentToDelete(null);
+        }}
+        onCancel={() => {
+          setIsConfirmOpen(false);
+          setAssignmentToDelete(null);
+        }}
+      />
     </main>
   );
 }

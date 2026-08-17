@@ -1,0 +1,149 @@
+.create-assignment-container {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.assignment-heading-box {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-xl);
+  box-sizing: border-box;
+}
+
+.assignment-label {
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.assignment-heading-box h1 {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--ink);
+  font-size: 30px;
+  line-height: 1.25;
+  font-family: 'EB Garamond', serif;
+}
+
+.assignment-heading-box p {
+  margin: 0;
+  max-width: 650px;
+  color: var(--body);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.create-assignment-card {
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-xl);
+  padding: var(--spacing-xl);
+  box-shadow: 0 4px 14px rgba(12, 10, 9, 0.02);
+}
+
+/* Force equal heights on Select and Input */
+.create-assignment-card select.form-select,
+.create-assignment-card input.form-input {
+  height: 44px;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   FOOTER ACTIONS
+========================================== */
+
+.assignment-action-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xl);
+}
+
+.assignment-action-footer .cancel-btn,
+.assignment-action-footer .publish-assignment-btn {
+  height: 44px;
+  padding: 0 var(--spacing-xl);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--rounded-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.assignment-action-footer .cancel-btn {
+  background: transparent;
+  color: var(--body);
+  border: 1px solid var(--hairline-strong);
+}
+
+.assignment-action-footer .cancel-btn:hover {
+  background: var(--hairline-soft);
+  color: var(--ink);
+  border-color: var(--muted);
+}
+
+.assignment-action-footer .publish-assignment-btn {
+  background: var(--primary);
+  color: var(--surface-card);
+  border: 1px solid var(--primary);
+  gap: 8px;
+}
+
+.assignment-action-footer .publish-assignment-btn:hover {
+  background: var(--primary-active);
+  border-color: var(--primary-active);
+}
+
+.assignment-action-footer .publish-assignment-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.forbidden-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  background: var(--surface-card);
+  border: 1px dashed var(--hairline-strong);
+  border-radius: var(--rounded-xl);
+}
+
+.forbidden-card i {
+  font-size: 48px;
+  color: #ef4444;
+  margin-bottom: var(--spacing-md);
+}
+
+.forbidden-card h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: 24px;
+  margin: 0 0 var(--spacing-xs);
+  color: var(--ink);
+}
+
+.forbidden-card p {
+  color: var(--body);
+  font-size: 13.5px;
+  max-width: 440px;
+  line-height: 1.6;
+  margin: 0;
+}

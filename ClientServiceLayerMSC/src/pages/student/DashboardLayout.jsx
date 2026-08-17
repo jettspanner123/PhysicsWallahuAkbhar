@@ -59,6 +59,7 @@ const breadcrumbLabels = {
   "/dashboard/profile": "Profile & Settings",
   "/dashboard/create-course": "Create Course",
   "/dashboard/create-quizzes": "Create Quiz",
+  "/dashboard/create-assignments": "Create Assignment",
   "/dashboard/contact": "Contact Messages",
 };
 
@@ -84,15 +85,26 @@ function DashboardLayout() {
   const userInfo = authServices.getUserInfo();
   const isInstructor = userInfo.role === "TEACHER" || userInfo.role === "ADMIN";
 
-  const filteredSidebarItems = isInstructor
-    ? [
-        ...sidebarItems.slice(0, 3), // Dashboard, Browse Courses, My Courses
+  const sections = [];
+  if (isInstructor) {
+    sections.push({
+      title: "Learning Portal",
+      items: sidebarItems,
+    });
+    sections.push({
+      title: "Creation Panel",
+      items: [
         { label: "Create Course", icon: "fa-solid fa-circle-plus", path: "/dashboard/create-course" },
         { label: "Create Quiz", icon: "fa-solid fa-circle-question", path: "/dashboard/create-quizzes" },
+        { label: "Create Assignment", icon: "fa-solid fa-file-signature", path: "/dashboard/create-assignments" },
         { label: "Contact Messages", icon: "fa-solid fa-envelope", path: "/dashboard/contact" },
-        ...sidebarItems.slice(3) // My Progress, etc.
-      ]
-    : sidebarItems;
+      ],
+    });
+  } else {
+    sections.push({
+      items: sidebarItems,
+    });
+  }
 
   // Load user name on mount and when localStorage changes
   useEffect(() => {
@@ -178,35 +190,50 @@ function DashboardLayout() {
               (mobileOpen ? " mobile-open" : "")
             }
           >
-            <nav className="dash-nav">
-              {filteredSidebarItems.map((item) => {
-                const isActive =
-                  item.path === "/dashboard"
-                    ? currentPath === "/dashboard"
-                    : currentPath.startsWith(item.path);
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              {sections.map((section, sIdx) => (
+                <div className="sidebar-section" key={sIdx}>
+                  {section.title && (
+                    <>
+                      {!collapsed ? (
+                        <div className="sidebar-section-title">{section.title}</div>
+                      ) : (
+                        <hr className="sidebar-section-divider" />
+                      )}
+                    </>
+                  )}
+                  <nav className="dash-nav">
+                    {section.items.map((item) => {
+                      const isActive =
+                        item.path === "/dashboard"
+                          ? currentPath === "/dashboard"
+                          : currentPath.startsWith(item.path);
 
-                return (
-                  <button
-                    key={item.path}
-                    className={isActive ? "active" : ""}
-                    onClick={() => {
-                      if (item.external) {
-                        window.location.href = item.path;
-                      } else {
-                        navigate(item.path);
-                      }
-                      setMobileOpen(false);
-                    }}
-                    title={collapsed ? item.label : undefined}
-                  >
-                    <i className={item.icon}></i>
-                    <span className="sidebar-label">
-                      {item.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </nav>
+                      return (
+                        <button
+                          key={item.path}
+                          className={isActive ? "active" : ""}
+                          onClick={() => {
+                            if (item.external) {
+                              window.location.href = item.path;
+                            } else {
+                              navigate(item.path);
+                            }
+                            setMobileOpen(false);
+                          }}
+                          title={collapsed ? item.label : undefined}
+                        >
+                          <i className={item.icon}></i>
+                          <span className="sidebar-label">
+                            {item.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </nav>
+                </div>
+              ))}
+            </div>
 
             <button
               className="dash-collapse-btn"

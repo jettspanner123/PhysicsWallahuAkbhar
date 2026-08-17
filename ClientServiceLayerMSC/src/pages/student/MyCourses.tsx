@@ -5,6 +5,7 @@ import { CourseServices } from "../../Services/CourseServices";
 import { AuthServices } from "../../Services/AuthServices";
 import { CourseModel } from "../../Models/CourseModel";
 import { EnrollmentModel } from "../../Models/EnrollmentModel";
+import ConfirmDialog from "../../components/ConfirmDialog";
 import "./MyCourses.css";
 
 const courseIcons: Record<string, string> = {
@@ -23,6 +24,8 @@ function MyCourses(): React.JSX.Element {
   const { role } = authServices.getUserInfo();
 
   const [activeTab, setActiveTab] = useState<"enrolled" | "browse">("enrolled");
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [courseToDelete, setCourseToDelete] = useState<CourseModel | null>(null);
 
   // Fetch all courses in catalog
   const { data: catalogResponse, isLoading: isLoadingCatalog } = useQuery({
@@ -194,9 +197,8 @@ function MyCourses(): React.JSX.Element {
                               className="delete-course-btn"
                               disabled={deleteMutation.isPending}
                               onClick={() => {
-                                if (window.confirm(`Are you sure you want to delete "${course.title}"? This will delete the course permanently for everyone.`)) {
-                                  deleteMutation.mutate(course.id);
-                                }
+                                setCourseToDelete(course);
+                                setIsConfirmOpen(true);
                               }}
                             >
                               <i className="fa-solid fa-trash"></i>
@@ -261,9 +263,8 @@ function MyCourses(): React.JSX.Element {
                               className="delete-course-btn"
                               disabled={deleteMutation.isPending}
                               onClick={() => {
-                                if (window.confirm(`Are you sure you want to delete "${course.title}"? This will delete the course permanently for everyone.`)) {
-                                  deleteMutation.mutate(course.id);
-                                }
+                                setCourseToDelete(course);
+                                setIsConfirmOpen(true);
                               }}
                             >
                               <i className="fa-solid fa-trash"></i>
@@ -279,6 +280,26 @@ function MyCourses(): React.JSX.Element {
           )}
         </>
       )}
+
+      <ConfirmDialog
+        isOpen={isConfirmOpen}
+        title="Delete Course 🚨"
+        message={`Are you sure you want to delete "${courseToDelete?.title}"? This will delete the course permanently for everyone.`}
+        confirmText="Delete permanently"
+        cancelText="Keep Course"
+        variant="danger"
+        onConfirm={() => {
+          if (courseToDelete) {
+            deleteMutation.mutate(courseToDelete.id);
+          }
+          setIsConfirmOpen(false);
+          setCourseToDelete(null);
+        }}
+        onCancel={() => {
+          setIsConfirmOpen(false);
+          setCourseToDelete(null);
+        }}
+      />
     </main>
   );
 }
