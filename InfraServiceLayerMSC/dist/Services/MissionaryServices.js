@@ -20,6 +20,9 @@ let MissionaryServices = class MissionaryServices {
     async createContactMessage(fullName, email, subject, message) {
         return this.missionaryRepository.create(fullName, email, subject, message);
     }
+    async getAllContactMessages() {
+        return this.missionaryRepository.findAll();
+    }
 };
 exports.MissionaryServices = MissionaryServices;
 exports.MissionaryServices = MissionaryServices = __decorate([

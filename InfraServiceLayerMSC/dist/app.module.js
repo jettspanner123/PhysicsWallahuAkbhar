@@ -14,16 +14,19 @@ const AuthController_1 = require("./Controllers/AuthController");
 const HealthController_1 = require("./Controllers/HealthController");
 const CourseController_1 = require("./Controllers/CourseController");
 const MissionaryController_1 = require("./Controllers/MissionaryController");
+const QuizController_1 = require("./Controllers/QuizController");
 const DatabaseProvider_1 = require("./Providers/DatabaseProvider");
 const UserRepository_1 = require("./Repositories/UserRepository");
 const HealthCheckLogRepository_1 = require("./Repositories/HealthCheckLogRepository");
 const CourseRepository_1 = require("./Repositories/CourseRepository");
 const MissionaryRepository_1 = require("./Repositories/MissionaryRepository");
+const QuizRepository_1 = require("./Repositories/QuizRepository");
 const UserServices_1 = require("./Services/UserServices");
 const AuthServices_1 = require("./Services/AuthServices");
 const HealthCheckLogServices_1 = require("./Services/HealthCheckLogServices");
 const CourseServices_1 = require("./Services/CourseServices");
 const MissionaryServices_1 = require("./Services/MissionaryServices");
+const QuizServices_1 = require("./Services/QuizServices");
 const PasswordServices_1 = require("./Services/PasswordServices");
 const AuthenticationConstants_1 = require("./Constants/AuthenticationConstants");
 let AppModule = class AppModule {
@@ -45,6 +48,7 @@ exports.AppModule = AppModule = __decorate([
             HealthController_1.HealthController,
             CourseController_1.CourseController,
             MissionaryController_1.MissionaryController,
+            QuizController_1.QuizController,
         ],
         providers: [
             DatabaseProvider_1.DatabaseProvider,
@@ -52,11 +56,13 @@ exports.AppModule = AppModule = __decorate([
             HealthCheckLogRepository_1.HealthCheckLogRepository,
             CourseRepository_1.CourseRepository,
             MissionaryRepository_1.MissionaryRepository,
+            QuizRepository_1.QuizRepository,
             UserServices_1.UserServices,
             AuthServices_1.AuthServices,
             HealthCheckLogServices_1.HealthCheckLogServices,
             CourseServices_1.CourseServices,
             MissionaryServices_1.MissionaryServices,
+            QuizServices_1.QuizServices,
             PasswordServices_1.PasswordServices,
         ],
     })

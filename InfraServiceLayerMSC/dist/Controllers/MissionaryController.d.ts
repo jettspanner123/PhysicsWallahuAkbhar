@@ -5,4 +5,5 @@ export declare class MissionaryController {
     private readonly missionaryServices;
     constructor(missionaryServices: MissionaryServices);
     createContact(createMissionaryDto: CreateMissionaryDto): Promise<ResponseModel<any>>;
+    getContactMessages(req: any): Promise<ResponseModel<any[]>>;
 }

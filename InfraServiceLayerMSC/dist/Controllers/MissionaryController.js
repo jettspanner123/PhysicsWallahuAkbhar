@@ -18,6 +18,7 @@ const MissionaryServices_1 = require("../Services/MissionaryServices");
 const CreateMissionaryDto_1 = require("../Models/CreateMissionaryDto");
 const ResponseModel_1 = require("../Models/ResponseModel");
 const HttpExceptionFilter_1 = require("../Filters/HttpExceptionFilter");
+const JwtAuthGuard_1 = require("../Guards/JwtAuthGuard");
 let MissionaryController = class MissionaryController {
     missionaryServices;
     constructor(missionaryServices) {
@@ -35,6 +36,18 @@ let MissionaryController = class MissionaryController {
             throw new common_1.InternalServerErrorException('Failed to store contact message.');
         }
     }
+    async getContactMessages(req) {
+        if (req.user.role !== 'TEACHER' && req.user.role !== 'ADMIN') {
+            throw new common_1.UnauthorizedException('Only teachers or administrators can view contact messages.');
+        }
+        try {
+            const messages = await this.missionaryServices.getAllContactMessages();
+            return new ResponseModel_1.ResponseModel(true, 'Contact messages fetched successfully.', messages);
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('Failed to fetch contact messages.');
+        }
+    }
 };
 exports.MissionaryController = MissionaryController;
 __decorate([
@@ -45,6 +58,15 @@ __decorate([
     __metadata("design:paramtypes", [CreateMissionaryDto_1.CreateMissionaryDto]),
     __metadata("design:returntype", Promise)
 ], MissionaryController.prototype, "createContact", null);
+__decorate([
+    (0, common_1.Get)(),
+    (0, common_1.UseGuards)(JwtAuthGuard_1.JwtAuthGuard),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], MissionaryController.prototype, "getContactMessages", null);
 exports.MissionaryController = MissionaryController = __decorate([
     (0, common_1.Controller)('missionaries'),
     (0, common_1.UseFilters)(HttpExceptionFilter_1.HttpExceptionFilter),

@@ -13,4 +13,8 @@ export class MissionaryServices {
     public async createContactMessage(fullName: string, email: string, subject: string, message: string): Promise<any> {
         return this.missionaryRepository.create(fullName, email, subject, message);
     }
+
+    public async getAllContactMessages(): Promise<any[]> {
+        return this.missionaryRepository.findAll();
+    }
 }

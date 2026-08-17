@@ -1,0 +1,167 @@
+.contact-messages-container {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.messages-heading {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-xl);
+  box-sizing: border-box;
+}
+
+.messages-label {
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.messages-heading h1 {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--ink);
+  font-size: 30px;
+  line-height: 1.25;
+  font-family: 'EB Garamond', serif;
+}
+
+.messages-heading p {
+  margin: 0;
+  max-width: 650px;
+  color: var(--body);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   MESSAGES GRID & CARDS
+========================================== */
+
+.messages-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-base);
+}
+
+.message-card {
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-xl);
+  padding: var(--spacing-lg);
+  box-shadow: 0 4px 14px rgba(12, 10, 9, 0.02);
+  transition: border-color 0.15s ease;
+}
+
+.message-card:hover {
+  border-color: var(--hairline-strong);
+}
+
+.message-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.msg-sender-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.msg-sender-email {
+  font-size: 12.5px;
+  color: var(--body);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.msg-sender-email:hover {
+  color: var(--ink);
+}
+
+.msg-date {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.message-card-body h3 {
+  margin: 0 0 var(--spacing-xs);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.message-card-body p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--body);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* ==========================================
+   EMPTY & FORBIDDEN CARDS
+========================================== */
+
+.empty-messages-card,
+.forbidden-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  background: var(--surface-card);
+  border: 1px dashed var(--hairline-strong);
+  border-radius: var(--rounded-xl);
+}
+
+.empty-messages-card i,
+.forbidden-card i {
+  font-size: 48px;
+  color: var(--muted-soft);
+  margin-bottom: var(--spacing-md);
+}
+
+.forbidden-card i {
+  color: #ef4444;
+}
+
+.empty-messages-card h2,
+.forbidden-card h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: 24px;
+  margin: 0 0 var(--spacing-xs);
+  color: var(--ink);
+}
+
+.empty-messages-card p,
+.forbidden-card p {
+  color: var(--body);
+  font-size: 13.5px;
+  max-width: 440px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl);
+  color: var(--muted);
+}

@@ -20,4 +20,12 @@ export class MissionaryRepository {
             },
         });
     }
+
+    public async findAll(): Promise<any[]> {
+        return this.databaseProvider.missionaryModel.findMany({
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+    }
 }

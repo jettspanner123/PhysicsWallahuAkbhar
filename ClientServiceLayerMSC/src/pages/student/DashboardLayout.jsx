@@ -58,6 +58,8 @@ const breadcrumbLabels = {
   "/dashboard/certificates": "Certificates",
   "/dashboard/profile": "Profile & Settings",
   "/dashboard/create-course": "Create Course",
+  "/dashboard/create-quizzes": "Create Quiz",
+  "/dashboard/contact": "Contact Messages",
 };
 
 
@@ -86,6 +88,8 @@ function DashboardLayout() {
     ? [
         ...sidebarItems.slice(0, 3), // Dashboard, Browse Courses, My Courses
         { label: "Create Course", icon: "fa-solid fa-circle-plus", path: "/dashboard/create-course" },
+        { label: "Create Quiz", icon: "fa-solid fa-circle-question", path: "/dashboard/create-quizzes" },
+        { label: "Contact Messages", icon: "fa-solid fa-envelope", path: "/dashboard/contact" },
         ...sidebarItems.slice(3) // My Progress, etc.
       ]
     : sidebarItems;

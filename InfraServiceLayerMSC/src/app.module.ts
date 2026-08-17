@@ -5,16 +5,19 @@ import { AuthController } from './Controllers/AuthController';
 import { HealthController } from './Controllers/HealthController';
 import { CourseController } from './Controllers/CourseController';
 import { MissionaryController } from './Controllers/MissionaryController';
+import { QuizController } from './Controllers/QuizController';
 import { DatabaseProvider } from './Providers/DatabaseProvider';
 import { UserRepository } from './Repositories/UserRepository';
 import { HealthCheckLogRepository } from './Repositories/HealthCheckLogRepository';
 import { CourseRepository } from './Repositories/CourseRepository';
 import { MissionaryRepository } from './Repositories/MissionaryRepository';
+import { QuizRepository } from './Repositories/QuizRepository';
 import { UserServices } from './Services/UserServices';
 import { AuthServices } from './Services/AuthServices';
 import { HealthCheckLogServices } from './Services/HealthCheckLogServices';
 import { CourseServices } from './Services/CourseServices';
 import { MissionaryServices } from './Services/MissionaryServices';
+import { QuizServices } from './Services/QuizServices';
 import { PasswordServices } from './Services/PasswordServices';
 import { AuthenticationConstants } from './Constants/AuthenticationConstants';
 
@@ -33,6 +36,7 @@ import { AuthenticationConstants } from './Constants/AuthenticationConstants';
         HealthController,
         CourseController,
         MissionaryController,
+        QuizController,
     ],
     providers: [
         DatabaseProvider,
@@ -40,11 +44,13 @@ import { AuthenticationConstants } from './Constants/AuthenticationConstants';
         HealthCheckLogRepository,
         CourseRepository,
         MissionaryRepository,
+        QuizRepository,
         UserServices,
         AuthServices,
         HealthCheckLogServices,
         CourseServices,
         MissionaryServices,
+        QuizServices,
         PasswordServices,
     ],
 })

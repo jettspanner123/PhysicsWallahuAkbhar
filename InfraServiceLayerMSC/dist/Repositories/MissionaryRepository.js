@@ -27,6 +27,13 @@ let MissionaryRepository = class MissionaryRepository {
             },
         });
     }
+    async findAll() {
+        return this.databaseProvider.missionaryModel.findMany({
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+    }
 };
 exports.MissionaryRepository = MissionaryRepository;
 exports.MissionaryRepository = MissionaryRepository = __decorate([

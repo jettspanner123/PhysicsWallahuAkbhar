@@ -29,4 +29,8 @@ export class MissionaryServices {
             message,
         });
     }
+
+    public async getContactMessages(): Promise<ResponseModel<any[]>> {
+        return this.httpClient.get<ResponseModel<any[]>>('/missionaries');
+    }
 }
