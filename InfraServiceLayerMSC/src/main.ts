@@ -9,9 +9,19 @@ export class Application {
     public static async bootstrap(): Promise<void> {
         const app = await NestFactory.create(AppModule);
         
-        // Enable CORS for frontend (localhost:5173)
+        // Enable CORS for frontend
+        const allowedOrigins = [
+            'http://localhost:5173',
+            'http://127.0.0.1:5173',
+            'https://physics-wallahu-akbhar.vercel.app',
+            process.env.FRONTEND_URL,
+        ].filter(Boolean) as (string | RegExp)[];
+
         app.enableCors({
-            origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+            origin: [
+                ...allowedOrigins,
+                /\.vercel\.app$/, // Allow Vercel preview deployments
+            ],
             credentials: true,
             methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
             allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
