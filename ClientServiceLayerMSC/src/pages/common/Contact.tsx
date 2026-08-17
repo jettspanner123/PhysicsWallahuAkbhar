@@ -1,8 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { MissionaryServices } from "../../Services/MissionaryServices";
 import "./Home.css";
 import "./Contact.css";
 
-function Contact() {
+function Contact(): React.JSX.Element {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
+  const missionaryServices = MissionaryServices.getInstance();
+
+  const contactMutation = useMutation({
+    mutationFn: () => missionaryServices.submitContactMessage(fullName, email, subject, message),
+    onSuccess: () => {
+      toast.success("Message sent successfully!", {
+        description: "Our support team will get back to you shortly.",
+      });
+      setFullName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
+    },
+    onError: (err: any) => {
+      const msg = err.response?.data?.message || err.message;
+      toast.error("Failed to send message", { description: msg });
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!fullName.trim() || !email.trim() || !subject.trim() || !message.trim()) {
+      toast.error("Validation Error", { description: "Please fill out all fields." });
+      return;
+    }
+
+    contactMutation.mutate();
+  };
+
   return (
     <div className="home-page-wrapper">
       {/* Top Navbar */}
@@ -109,29 +147,66 @@ function Contact() {
                 <h2>Send Us a Message</h2>
                 <p>Fill in the form below and our team will respond to your query.</p>
 
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form onSubmit={handleSubmit}>
                   <div className="form-group">
-                    <label>Full Name</label>
-                    <input type="text" className="form-input" placeholder="Enter your full name" />
+                    <label htmlFor="fullName">Full Name</label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      className="form-input"
+                      placeholder="Enter your full name"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      required
+                    />
                   </div>
 
                   <div className="form-group">
-                    <label>Email Address</label>
-                    <input type="email" className="form-input" placeholder="Enter your email address" />
+                    <label htmlFor="email">Email Address</label>
+                    <input
+                      type="email"
+                      id="email"
+                      className="form-input"
+                      placeholder="Enter your email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
                   </div>
 
                   <div className="form-group">
-                    <label>Subject</label>
-                    <input type="text" className="form-input" placeholder="Enter your subject" />
+                    <label htmlFor="subject">Subject</label>
+                    <input
+                      type="text"
+                      id="subject"
+                      className="form-input"
+                      placeholder="Enter your subject"
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                      required
+                    />
                   </div>
 
                   <div className="form-group">
-                    <label>Message</label>
-                    <textarea className="form-textarea" rows="6" placeholder="Write your message here..."></textarea>
+                    <label htmlFor="message">Message</label>
+                    <textarea
+                      id="message"
+                      className="form-textarea"
+                      rows={6}
+                      placeholder="Write your message here..."
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      required
+                    ></textarea>
                   </div>
 
-                  <button type="submit" className="btn-primary" style={{ padding: "12px 24px", height: "44px", alignSelf: "flex-start", marginTop: "8px" }}>
-                    Send Message
+                  <button
+                    type="submit"
+                    className="btn-primary"
+                    disabled={contactMutation.isPending}
+                    style={{ padding: "12px 24px", height: "44px", alignSelf: "flex-start", marginTop: "8px" }}
+                  >
+                    {contactMutation.isPending ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               </div>
