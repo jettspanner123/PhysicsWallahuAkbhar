@@ -1,7 +1,18 @@
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import { CourseServices } from "../../Services/CourseServices";
+import { EnrollmentModel } from "../../Models/EnrollmentModel";
 import "./Assignments.css";
-import courseData from "../common/courseData.js";
 
-const assignmentData = {
+interface AssignmentItem {
+  title: string;
+  module: string;
+  due: string;
+  marks: string;
+  status: string;
+}
+
+const mockAssignmentData: Record<string, AssignmentItem[]> = {
   "web-development": [
     {
       title: "HTML Fundamentals Assignment",
@@ -105,7 +116,7 @@ const assignmentData = {
   ],
 };
 
-const courseIcons = {
+const courseIcons: Record<string, string> = {
   "web-development": "fa-solid fa-laptop-code",
   "java-programming": "fa-solid fa-mug-hot",
   "database-management": "fa-solid fa-database",
@@ -114,15 +125,37 @@ const courseIcons = {
   "cyber-security": "fa-solid fa-shield-halved",
 };
 
-function Assignments() {
-  const allAssignments = courseData.flatMap((course) =>
-    (assignmentData[course.id] || []).map((assignment) => ({
+function Assignments(): React.JSX.Element {
+  const courseServices = CourseServices.getInstance();
+
+  const { data: enrolledResponse, isLoading } = useQuery({
+    queryKey: ["enrolledCourses"],
+    queryFn: () => courseServices.getEnrolledCourses(),
+  });
+
+  const enrolled = enrolledResponse?.data || [];
+
+  const getSlug = (title: string): string => {
+    return title.toLowerCase().replace(/\s+/g, "-");
+  };
+
+  const getIconClass = (title: string): string => {
+    return courseIcons[getSlug(title)] || "fa-solid fa-pen-to-square";
+  };
+
+  const allAssignments = enrolled.flatMap((enrollment: EnrollmentModel) => {
+    const course = enrollment.course;
+    if (!course) return [];
+    const slug = getSlug(course.title);
+    const list = mockAssignmentData[slug] || [];
+    return list.map((assignment) => ({
       ...assignment,
       courseTitle: course.title,
       category: course.category,
       courseId: course.id,
-    }))
-  );
+      slug: slug,
+    }));
+  });
 
   const submittedCount = allAssignments.filter(
     (assignment) => assignment.status === "Submitted"
@@ -134,20 +167,15 @@ function Assignments() {
 
   return (
     <main className="assignments-container">
-
       {/* =========================
           PAGE HEADER
       ========================= */}
-
       <section className="assignments-header">
         <div>
-          <span className="assignments-label">
-            STUDENT AREA
-          </span>
+          <span className="assignments-label">STUDENT AREA</span>
           <h1>Assignments 📝</h1>
           <p>
-            View your course assignments, deadlines and
-            submission status in one place.
+            View your course assignments, deadlines and submission status in one place.
           </p>
         </div>
       </section>
@@ -155,7 +183,6 @@ function Assignments() {
       {/* =========================
           SUMMARY
       ========================= */}
-
       <section className="assignment-summary">
         <div className="assignment-summary-card">
           <div className="assignment-summary-icon">
@@ -191,84 +218,93 @@ function Assignments() {
       {/* =========================
           ASSIGNMENT LIST
       ========================= */}
-
       <section className="assignments-section">
         <div className="assignments-section-heading">
           <div>
-            <span className="assignments-label">
-              YOUR WORK
-            </span>
+            <span className="assignments-label">YOUR WORK</span>
             <h2>All Assignments</h2>
             <p>
-              Complete your pending assignments before
-              their deadlines.
+              Complete your pending assignments before their deadlines.
             </p>
           </div>
           <span className="assignment-course-count">
-            {courseData.length} Courses
+            {enrolled.length} Enrolled Courses
           </span>
         </div>
 
-        <div className="assignment-list">
-          {allAssignments.map((assignment, index) => (
-            <article
-              className="assignment-card"
-              key={`${assignment.courseId}-${index}`}
-            >
-              {/* Assignment Icon */}
-              <div className="assignment-icon">
-                <i className={courseIcons[assignment.courseId] || "fa-solid fa-pen-to-square"}></i>
-              </div>
-
-              {/* Main Information */}
-              <div className="assignment-content">
-                <span className="assignment-category">
-                  {assignment.category}
-                </span>
-                <h3>{assignment.title}</h3>
-                <p className="assignment-course">
-                  {assignment.courseTitle}
-                </p>
-                <p className="assignment-module">
-                  {assignment.module}
-                </p>
-
-                <div className="assignment-meta">
-                  <span>
-                    <i className="fa-regular fa-calendar" style={{ marginRight: '4px' }}></i> Due: {assignment.due}
-                  </span>
-                  <span>
-                    <i className="fa-solid fa-bullseye" style={{ marginRight: '4px' }}></i> {assignment.marks}
-                  </span>
+        {isLoading ? (
+          <div className="assignments-loading">
+            <div className="spinner"></div>
+            <p>Loading assignments...</p>
+          </div>
+        ) : allAssignments.length === 0 ? (
+          <div className="assignments-empty-state">
+            <i className="fa-regular fa-clipboard"></i>
+            <h3>No Assignments</h3>
+            <p>You don't have any assignments yet. Enroll in courses to start receiving assignments.</p>
+          </div>
+        ) : (
+          <div className="assignment-list">
+            {allAssignments.map((assignment, index) => (
+              <article
+                className="assignment-card"
+                key={`${assignment.courseId}-${index}`}
+              >
+                {/* Assignment Icon */}
+                <div className="assignment-icon">
+                  <i className={getIconClass(assignment.courseTitle)}></i>
                 </div>
-              </div>
 
-              {/* Status + Button */}
-              <div className="assignment-action">
-                <span
-                  className={
-                    assignment.status === "Submitted"
-                      ? "assignment-status submitted"
-                      : "assignment-status pending"
-                  }
-                >
-                  {assignment.status === "Submitted"
-                    ? "✓ Submitted"
-                    : "● Pending"}
-                </span>
+                {/* Main Information */}
+                <div className="assignment-content">
+                  <span className="assignment-category">
+                    {assignment.category}
+                  </span>
+                  <h3>{assignment.title}</h3>
+                  <p className="assignment-course">
+                    {assignment.courseTitle}
+                  </p>
+                  <p className="assignment-module">
+                    {assignment.module}
+                  </p>
 
-                <a
-                  href={`/course-details?id=${assignment.courseId}`}
-                  className="assignment-btn"
-                >
-                  {assignment.status === "Submitted"
-                    ? "View Course"
-                    : "Open Assignment"}
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
+                  <div className="assignment-meta">
+                    <span>
+                      <i className="fa-regular fa-calendar" style={{ marginRight: '4px' }}></i> Due: {assignment.due}
+                    </span>
+                    <span>
+                      <i className="fa-solid fa-bullseye" style={{ marginRight: '4px' }}></i> {assignment.marks}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Status + Button */}
+                <div className="assignment-action">
+                  <span
+                    className={
+                      assignment.status === "Submitted"
+                        ? "assignment-status submitted"
+                        : "assignment-status pending"
+                    }
+                  >
+                    {assignment.status === "Submitted"
+                      ? "✓ Submitted"
+                      : "● Pending"}
+                  </span>
+
+                  <a
+                    href={`/course-details?id=${assignment.courseId}`}
+                    className="assignment-btn"
+                  >
+                    {assignment.status === "Submitted"
+                      ? "View Course"
+                      : "Open Assignment"}
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );

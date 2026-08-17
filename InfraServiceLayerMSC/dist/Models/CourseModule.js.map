@@ -1,0 +1,1 @@
+{"version":3,"file":"CourseModule.js","sourceRoot":"","sources":["../../src/Models/CourseModule.ts"],"names":[],"mappings":";;;AAAA,MAAa,YAAY;IAEL,IAAI,CAAS;IACb,WAAW,CAAS;IACpB,OAAO,CAAS;IAEhC,YAAmB,IAAY,EAAE,WAAmB,EAAE,OAAe;QACjE,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;QAC/B,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;IAC3B,CAAC;CACJ;AAXD,oCAWC"}

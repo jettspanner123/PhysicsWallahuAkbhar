@@ -33,6 +33,13 @@ model CourseModel {
   title        String
   description  String
   image        String?
+  category     String
+  level        String
+  duration     String
+  lessons      String
+  rating       String
+  objectives   String[]
+  modules      CourseModule[]
   instructorId String   @db.ObjectId
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -50,6 +57,7 @@ model EnrollmentModel {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   studentId  String   @db.ObjectId
   courseId   String   @db.ObjectId
+  progress   Int      @default(0)
   enrolledAt DateTime @default(now())
 
   student    UserModel   @relation(fields: [studentId], references: [id], onDelete: Cascade)
@@ -152,4 +160,10 @@ model HealthCheckLogModel {
   ip        String?
 
   @@map("health_check_logs")
+}
+
+type CourseModule {
+  name        String
+  description String
+  lessons     Int
 }

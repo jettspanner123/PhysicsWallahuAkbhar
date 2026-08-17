@@ -50,10 +50,6 @@ const sidebarItems = [
 ];
 
 
-/* =========================
-   BREADCRUMB LABELS
-========================= */
-
 const breadcrumbLabels = {
   "/dashboard/courses": "My Courses",
   "/dashboard/progress": "My Progress",
@@ -61,6 +57,7 @@ const breadcrumbLabels = {
   "/dashboard/quizzes": "Quizzes",
   "/dashboard/certificates": "Certificates",
   "/dashboard/profile": "Profile & Settings",
+  "/dashboard/create-course": "Create Course",
 };
 
 
@@ -81,6 +78,17 @@ function DashboardLayout() {
   const currentPath = location.pathname;
   const breadcrumbLabel = breadcrumbLabels[currentPath];
   const isHome = currentPath === "/dashboard";
+
+  const userInfo = authServices.getUserInfo();
+  const isInstructor = userInfo.role === "TEACHER" || userInfo.role === "ADMIN";
+
+  const filteredSidebarItems = isInstructor
+    ? [
+        ...sidebarItems.slice(0, 3), // Dashboard, Browse Courses, My Courses
+        { label: "Create Course", icon: "fa-solid fa-circle-plus", path: "/dashboard/create-course" },
+        ...sidebarItems.slice(3) // My Progress, etc.
+      ]
+    : sidebarItems;
 
   // Load user name on mount and when localStorage changes
   useEffect(() => {
@@ -167,7 +175,7 @@ function DashboardLayout() {
             }
           >
             <nav className="dash-nav">
-              {sidebarItems.map((item) => {
+              {filteredSidebarItems.map((item) => {
                 const isActive =
                   item.path === "/dashboard"
                     ? currentPath === "/dashboard"

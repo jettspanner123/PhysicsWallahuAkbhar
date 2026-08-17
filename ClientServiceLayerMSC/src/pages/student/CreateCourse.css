@@ -1,0 +1,315 @@
+.create-course-container {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+.create-course-header {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-xl);
+  box-sizing: border-box;
+}
+
+.create-course-label {
+  display: inline-block;
+  margin-bottom: var(--spacing-xs);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.create-course-header h1 {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--ink);
+  font-size: 30px;
+  line-height: 1.25;
+  font-family: 'EB Garamond', serif;
+}
+
+.create-course-header p {
+  margin: 0;
+  max-width: 650px;
+  color: var(--body);
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+/* ==========================================
+   FORM CARDS
+========================================== */
+
+.create-course-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-card {
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-xl);
+  padding: var(--spacing-xl);
+  box-shadow: 0 4px 14px rgba(12, 10, 9, 0.02);
+}
+
+.form-section-title {
+  margin: 0 0 var(--spacing-lg);
+  font-family: 'EB Garamond', serif;
+  font-size: 22px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.section-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.section-header-flex .form-section-title {
+  margin-bottom: 0;
+}
+
+/* ==========================================
+   FORM INPUTS
+========================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--spacing-md);
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--body);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.form-group label .req {
+  color: #ef4444;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  padding: 10px 12px;
+  border-radius: var(--rounded-md);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface-card);
+  color: var(--ink);
+  transition: border-color 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+@media (max-width: 900px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   DYNAMIC ROW / LIST CONTAINERS
+========================================== */
+
+.list-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.dynamic-input-row {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.dynamic-input-row input {
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  padding: 10px 12px;
+  border-radius: var(--rounded-md);
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface-card);
+  color: var(--ink);
+}
+
+.remove-row-btn {
+  background: var(--canvas-soft);
+  color: var(--muted);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-md);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.remove-row-btn:hover {
+  background: #fef2f2;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+.remove-row-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.add-btn-small {
+  background: var(--surface-card);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--rounded-pill);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.add-btn-small:hover {
+  background: var(--surface-strong);
+  border-color: var(--ink);
+}
+
+/* ==========================================
+   MODULE BOX
+========================================== */
+
+.module-item-box {
+  border: 1px solid var(--hairline-strong);
+  background: var(--canvas-soft);
+  border-radius: var(--rounded-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.module-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.module-header-flex h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.remove-module-btn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.remove-module-btn:hover {
+  color: #dc2626;
+}
+
+.form-grid-module {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 600px) {
+  .form-grid-module {
+    grid-template-columns: 1fr;
+  }
+  .lessons-input-group {
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   FORM ACTIONS PANEL
+========================================== */
+
+.form-actions-panel {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.cancel-form-btn {
+  background: transparent;
+  color: var(--muted);
+  border: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.cancel-form-btn:hover {
+  color: var(--ink);
+}
+
+.submit-form-btn {
+  background: var(--primary);
+  color: var(--on-primary);
+  border: none;
+  border-radius: var(--rounded-pill);
+  padding: 12px 28px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.submit-form-btn:hover {
+  background: var(--primary-active);
+}
+
+.submit-form-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

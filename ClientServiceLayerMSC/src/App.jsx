@@ -19,6 +19,7 @@ import Assignments from "./pages/student/Assignments";
 import Quizzes from "./pages/student/Quizzes";
 import Certificates from "./pages/student/Certificates";
 import ProfileSettings from "./pages/student/ProfileSettings";
+import CreateCourse from "./pages/student/CreateCourse";
 import PageTransition from "./components/PageTransition";
 
 const queryClient = new QueryClient({
@@ -63,6 +64,7 @@ function AnimatedRoutes() {
           <Route path="quizzes" element={<Quizzes />} />
           <Route path="certificates" element={<Certificates />} />
           <Route path="profile" element={<ProfileSettings />} />
+          <Route path="create-course" element={<CreateCourse />} />
         </Route>
       </Routes>
     </AnimatePresence>
