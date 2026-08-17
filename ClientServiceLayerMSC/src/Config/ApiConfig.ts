@@ -1,5 +1,6 @@
 export class ApiConfig {
-    public static readonly BASE_URL: string = 'http://localhost:3000';
+    // public static readonly BASE_URL: string = 'http://localhost:3000';
+    public static readonly BASE_URL: string = 'https://physicswallahuakbhar.onrender.com';
     public static readonly API_TIMEOUT: number = 10000;
 
     private constructor() {
