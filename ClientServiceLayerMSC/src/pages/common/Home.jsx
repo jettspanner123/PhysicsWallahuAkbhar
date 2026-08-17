@@ -11,6 +11,7 @@ import GradientWaves from "../../Animations/GradientWaves";
 import "./Home.css";
 import SpringOptions from "../../Animations/SpringOptions";
 import LightRays from "../../Animations/LightRays";
+import RoadmapSection from "../../Animations/RoadmapSection";
 
 function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -37,7 +38,13 @@ function Home() {
 
   const { scrollYProgress: descriptionSectionScrollYProgress } = useScroll({
     target: descriptionSectionRef,
-    offset: ["start end", "start 40%"],
+    offset: ["start end", "start 30%"],
+  });
+
+  // Separate hook for the roadmap — spans the full 300vh
+  const { scrollYProgress: roadmapScrollYProgress } = useScroll({
+    target: descriptionSectionRef,
+    offset: ["start start", "end end"],
   });
   const { scrollYProgress: rootScrollProgress } = useScroll();
 
@@ -573,21 +580,7 @@ function Home() {
                 }}
                 className="h-screen bg-black relative"
               >
-                <LightRays
-                  raysOrigin="top-center"
-                  raysColor="#ffffff"
-                  raysSpeed={1}
-                  lightSpread={0.5}
-                  rayLength={3}
-                  followMouse={true}
-                  mouseInfluence={0.1}
-                  noiseAmount={0}
-                  distortion={0}
-                  className="custom-rays"
-                  pulsating={false}
-                  fadeDistance={1}
-                  saturation={1}
-                />
+                <RoadmapSection scrollYProgress={roadmapScrollYProgress} />
               </motion.div>
             </div>
           </section>
